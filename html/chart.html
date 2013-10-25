@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Project Activity</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body class="dark">
+<div class="layout">
+    <div class="header-text"></div>
+    <div class="content">
+        <div id="rcf" class="row">
+            <div class="legend-row">
+                <div class="legend">Relative Commit Frequency (RCF)</div>
+                <div class="hr"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="col1">
+                <div class="text">프로젝트의 활동성을 나타내는 지표</div>
+                <label class="label-value">0</label>
+            </div>
+            <div class="col2"><div class="circularGauge"></div></div>
+            <div class="col3"></div>
+        </div>
+        <div id="scf" class="row">
+            <div class="legend-row">
+                <div class="legend">Scale of Commit Frequency (SCF)</div>
+                <div class="hr"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="col1">
+                <div class="text">프로젝트의 성장 규모를 나타내는 지표</div>
+                <label class="label-value">0</label>
+            </div>
+            <div class="col2"><div class="circularGauge"></div></div>
+            <div class="col3"></div>
+        </div>
+        <div id="ccr" class="row">
+            <div class="legend-row">
+                <div class="legend">Cross Commit Ratio (CCR)</div>
+                <div class="hr"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="col1">
+                <div class="text">프로젝트의 협업 정도를 나타내는 지표</div>
+                <label class="label-value">0</label>
+            </div>
+            <div class="col2"><div class="circularGauge"></div></div>
+            <div class="col3"></div>
+        </div>
+        <div id="ruci" class="row">
+            <div class="legend-row">
+                <div class="legend">Relative User Commit Interval (RUCI)</div>
+                <div class="hr"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="col1">
+                <div class="text">프로젝트의 커밋 리뷰 노력을 나타내는 지표</div>
+                <label class="label-value">0</label>
+            </div>
+            <div class="col2"><div class="circularGauge"></div></div>
+            <div class="col3"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/knockout-2.2.1.js"></script>
+<script src="js/globalize.min.js"></script>
+<script src="js/dx.chartjs.js"></script>
+<script src="js/jquery.animateNumbers.js"></script>
+<script src="js/data.js"></script>
+<script src="js/chart.js"></script>
+</html>
