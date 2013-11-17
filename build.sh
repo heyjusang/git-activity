@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p bin
+
 LIBS=bin
 for f in `ls libs`; do LIBS=$LIBS:libs/$f; done
 

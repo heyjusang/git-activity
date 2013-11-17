@@ -17,7 +17,7 @@ public class Main {
             return br.readLine();
         } catch (IOException e) {
             e.printStackTrace();
-            return "rust";
+            return "node";
         }
     }
 
