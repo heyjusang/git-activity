@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-
-
-
-
 public class Trainer {
 
-    private static final String JSON_PATH = "train.json"; 
+    private static final String JSON_PATH = "model/train.json"; 
 
     private static void writeFile(JSONArray ary) {
         try {
@@ -32,13 +28,13 @@ public class Trainer {
         ArrayList<Double> scf = (new SCF(target)).getLogs(nMaxSample);
         ArrayList<Double> ccr = (new CCR(target)).getLogs(nMaxSample);
         
-        for (int i = 0; i < rcf.size() - 24; i++) {
+        for (int i = 0; i < rcf.size() - 6; i++) {
             JSONObject obj = new JSONObject();
             obj.put("name", target.getProjectName());
             obj.put("rcf", rcf.get(i));
             obj.put("scf", scf.get(i));
             obj.put("ccr", ccr.get(i));
-            obj.put("target", rcf.get(i+24));
+            obj.put("target", rcf.get(i+6));
             ary.add(obj);
         }
 
@@ -47,9 +43,13 @@ public class Trainer {
     }
 
     public static void main(String[] args) {
-        String projectName = "node";
-        Target target = new Target(projectName);
-        JSONArray ary = computeTrainData(target);
-        writeFile(ary);
+        String[] projectNames = {"node", "yobi"};
+        JSONArray bigAry = new JSONArray();
+        for (String projectName : projectNames) {
+            Target target = new Target(projectName);
+            JSONArray ary = computeTrainData(target);
+            bigAry.addAll(ary);
+        }
+        writeFile(bigAry);
     }
 }
