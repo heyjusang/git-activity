@@ -7,14 +7,15 @@ import java.util.Date;
 public abstract class Metric {
     
     private final int DEFAULT_SAMPLES = 50;
-    protected final int MONTH = 4*7*24*60*60;
+    public static final int MONTH = 4*7*24*60*60;
+    public static final int WEEK = 7*24*60*60;
     protected Target target;
 
     public Metric(Target target) {
         this.target = target;
     }
 
-    private int today() {
+    public static int today() {
         return (int)((new Date()).getTime() / 1000);
     }
 
