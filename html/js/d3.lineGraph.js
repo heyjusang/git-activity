@@ -93,7 +93,7 @@ function drawLineGraph(chartId, options) {
   .attr("stroke-dasharray", totalLength + " " + totalLength)
   .attr("stroke-dashoffset", totalLength)
   .transition()
-  .duration(2000)
+  .duration(1000)
   .ease("linear")
   .attr("stroke-dashoffset", 0);
 
