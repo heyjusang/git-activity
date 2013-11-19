@@ -1,6 +1,7 @@
 function drawGaugeGraph(gaugeId, options) {
   var defaults = {
 		margin: 50,
+		data: 30,
 		section: {
 			startValue: 0,
 			endValue: 100,
@@ -13,6 +14,11 @@ function drawGaugeGraph(gaugeId, options) {
 			radius: 8,
 			strokeWidth: 2,
 			strokeColor: "#ffffff"
+		},
+		needle: {
+			needleWidth: 2,
+			needleColor: "#c2c2c2",
+			padding: 7
 		}
 	}
 
@@ -84,5 +90,26 @@ function drawGaugeGraph(gaugeId, options) {
 	.attr("transform", "translate("+ centerX + "," + centerY + ")")
 	.attr("fill", options.spindle.strokeColor);
 
+	//draw needle
+	
+	targetAngle = options.section.startAngle + ((options.section.endAngle - options.section.startAngle) * options.data) / (options.section.endValue - options.section.startValue);
+
+	var needle = chart.append("line")
+	.attr("x1", centerX)
+	.attr("x2", centerX)
+	.attr("y1",(centerY - options.spindle.radius))
+	.attr("y2",(centerY - radius + options.needle.padding))
+	.style("stroke", options.needle.needleColor)
+	.style("stroke-width", options.needle.needleWidth);
+
+	needle
+	.transition()
+	.duration(1000)
+	.ease("linear")
+	.attrTween("transform", tween);
+
+	function tween(d, i, a) {
+		return d3.interpolateString("rotate(" + options.section.startAngle + ", " + centerX + ", " + centerY + ")", "rotate(" + targetAngle + ", " + centerX + ", " + centerY + ")");
+	}
 }
 
