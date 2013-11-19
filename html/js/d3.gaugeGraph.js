@@ -1,5 +1,5 @@
 function drawGaugeGraph(gaugeId, options) {
-  var defaults = {
+	var defaults = {
 		margin: 50,
 		data: 30,
 		section: {
@@ -19,6 +19,12 @@ function drawGaugeGraph(gaugeId, options) {
 			needleWidth: 2,
 			needleColor: "#c2c2c2",
 			padding: 7
+		},
+		interval: {
+			padding: 12,
+			textAnchor: "middle",
+			fontSize: "10px",
+			fontColor: "#a7acbc"
 		}
 	}
 
@@ -91,7 +97,7 @@ function drawGaugeGraph(gaugeId, options) {
 	.attr("fill", options.spindle.strokeColor);
 
 	//draw needle
-	
+
 	targetAngle = options.section.startAngle + ((options.section.endAngle - options.section.startAngle) * options.data) / (options.section.endValue - options.section.startValue);
 
 	var needle = chart.append("line")
