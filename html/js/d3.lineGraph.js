@@ -1,4 +1,4 @@
-function drawLineGraph(chartId, dataSource, valueMin, valueMax, options) {
+function drawLineGraph(chartId, options) {
 	options = $.extend(true,{},defaults,options);
 
 	width = $(chartId).width();
@@ -20,7 +20,7 @@ function drawLineGraph(chartId, dataSource, valueMin, valueMax, options) {
 
 	drawAxis(chart, options.axis);
 	drawGuideLine(chart, options.guideLine);
-	drawData(chart, dataSource, options.dataLine); 
+	drawData(chart, options.data, options.dataLine); 
 
 
 }
@@ -136,6 +136,7 @@ function drawData(chart, data, options) {
 }
 
 var defaults = {
+	data : {},
 	margin : {
 		left : 30,
 		right : 5,
