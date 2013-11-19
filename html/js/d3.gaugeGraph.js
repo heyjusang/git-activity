@@ -1,10 +1,12 @@
 function drawGaugeGraph(gaugeId, options) {
   var defaults = {
 		margin: 50,
-		scale: {
+		section: {
 			startValue: 0,
 			endValue: 100,
 			ticks: [25, 50, 75],
+			startAngle: -130,
+			endAngle: 130,
 			colors: ["#76c8bd", "#f7c676", "#f7c676", "#c5819a"]
 		}
   }
@@ -18,8 +20,6 @@ function drawGaugeGraph(gaugeId, options) {
   var centerY = height/2;
   var radius = (Math.min(width,height) - options.margin) / 2;	
 
-
-
 	//draw chart
   var chart = d3.select(gaugeId).append("svg")
   .attr("class", "gaugeGraph")
@@ -28,22 +28,22 @@ function drawGaugeGraph(gaugeId, options) {
 
 	//draw arc
 	
-	var startAngle = 0;
+	var startAngle = options.section.startAngle;
 	var endAngle;
-	var ticks = options.scale.ticks;
-	var colors = options.scale.colors;
+	var ticks = options.section.ticks;
+	var colors = options.section.colors;
 	var intervalAngle = 5;
 	for (var i=0; i < ticks.length; i++) {
 
 		var tick = ticks[i]; 
 
-		endAngle = (260 * tick) / (options.scale.endValue - options.scale.startValue);
+		endAngle = options.section.startAngle + ((options.section.endAngle - options.section.startAngle) * tick) / (options.section.endValue - options.section.startValue);
 
 		var arc = d3.svg.arc()
 		.innerRadius(radius-2)
 		.outerRadius(radius)
-		.startAngle((startAngle - 130 + intervalAngle) * (Math.PI/180))
-		.endAngle((endAngle - 130 - intervalAngle) * (Math.PI/180))
+		.startAngle((startAngle + intervalAngle) * (Math.PI/180))
+		.endAngle((endAngle - intervalAngle) * (Math.PI/180))
 
 		chart.append("path")
 		.attr("d", arc)
@@ -53,19 +53,20 @@ function drawGaugeGraph(gaugeId, options) {
 		startAngle = endAngle;
 	}
 
-	endAngle = 260;
+	endAngle = options.section.endAngle;
 
 	var arc = d3.svg.arc()
 	.innerRadius(radius-2)
 	.outerRadius(radius)
-	.startAngle((startAngle - 130 + intervalAngle) * (Math.PI/180))
-	.endAngle((endAngle - 130 - intervalAngle) * (Math.PI/180))
+	.startAngle((startAngle + intervalAngle) * (Math.PI/180))
+	.endAngle((endAngle - intervalAngle) * (Math.PI/180))
 
 	chart.append("path")
 	.attr("d", arc)
 	.attr("transform", "translate("+ centerX + "," + centerY + ")")
 	.attr("fill", colors[colors.length - 1]);
 
+	//draw spindle
 
 }
 
