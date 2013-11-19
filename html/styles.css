@@ -142,3 +142,26 @@ label
   color: #7cd2c7;
 }
 
+.yAxis .domain
+{
+	fill: none;
+	stroke: #a7acbc;
+}
+
+.yAxis text
+{
+	fill: #a7acbc;
+}
+
+.xAxis .domain
+{
+	fill: none;
+	stroke: #a7acbc;
+}
+
+.xAxis text
+{
+	fill: #a7acbc;
+}
+
+
