@@ -25,6 +25,10 @@ function drawLineGraph(chartId, options) {
       max : 100,
       min : 0,
       tick : 25
+    },
+    guideLine: {
+      values: [25, 75],
+			colors: ["#f7c676", "#c5819a"]
     }
   };
 
@@ -71,6 +75,26 @@ function drawLineGraph(chartId, options) {
   .style("opacity", options.axis.opacity)
   .style("font-size", options.axis.fontSize)
   .call(yAxis);
+
+  //draw GuideLine
+
+  for (var i = 0; i < options.guideLine.values.length; i++) {
+    value = options.guideLine.values[i];
+    color = options.guideLine.colors[Math.min(i, options.guideLine.colors.length)];
+    var guideLine = d3.svg.line()
+    .x(function(d) {
+      return x(d);
+    })
+    .y(function(d) {
+      return y(value);
+    });
+
+    var path = chart.append("path")
+    .attr("d", guideLine([xMin,xMax]))
+    .style("shape-rendering", "crispEdges")
+    .style("stroke", color);
+  }
+
 
 
   var line = d3.svg.line()
