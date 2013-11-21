@@ -29,7 +29,7 @@ function drawGauge(gaugeId, value, valueMin, valueMax) {
 
 function processAll(prefix, data, valueMin, valueMax) {
   drawChart(prefix + " .col3", data, valueMin, valueMax);
-  drawGauge(prefix + " .circularGauge", data[data.length-1], valueMin, valueMax);
+  drawGauge(prefix + " .col2 .circularGauge", data[data.length-1], valueMin, valueMax);
   $(prefix + " .label-value").animateNumbers(Number(data[data.length-1].toFixed(2)));
 }
 

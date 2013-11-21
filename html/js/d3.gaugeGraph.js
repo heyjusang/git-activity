@@ -130,6 +130,9 @@ function drawGaugeGraph(gaugeId, options) {
 
   targetAngle = options.section.startAngle + ((options.section.endAngle - options.section.startAngle) * options.data) / (options.section.endValue - options.section.startValue);
 
+  var before =  "rotate(" + options.section.startAngle + ", " + centerX + ", " + centerY + ")";
+  var after = "rotate(" + targetAngle + ", " + centerX + ", " + centerY + ")";
+
   var needle = chart.append("line")
   .attr("x1", centerX)
   .attr("x2", centerX)
@@ -145,7 +148,7 @@ function drawGaugeGraph(gaugeId, options) {
   .attrTween("transform", tween);
 
   function tween(d, i, a) {
-    return d3.interpolateString("rotate(" + options.section.startAngle + ", " + centerX + ", " + centerY + ")", "rotate(" + targetAngle + ", " + centerX + ", " + centerY + ")");
+    return d3.interpolateString(before, after);
   }
 }
 
