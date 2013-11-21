@@ -1,10 +1,3 @@
-function parseData(data, valueMax) {
-    var result = [];
-    for (var i = 0; i < data.length; i++)
-        result.push({ index: i, value: Math.min(valueMax, Number(data[i].toFixed(2)))});
-    return result;
-}
-
 function drawChart(chartId, dataSource, valueMin, valueMax) {
 	drawLineGraph(chartId,{
 		data : dataSource});
@@ -23,7 +16,6 @@ function drawGauge(gaugeId, value, valueMin, valueMax) {
 }
 
 function processAll(prefix, data, valueMin, valueMax) {
-	var source = parseData(data, valueMax);
 	drawChart(prefix + " .col3", data, valueMin, valueMax);
 	drawGauge(prefix + " .circularGauge", data[data.length-1], valueMin, valueMax);
 	$(prefix + " .label-value").animateNumbers(Number(data[data.length-1].toFixed(2)));
