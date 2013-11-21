@@ -1,61 +1,68 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
     <title>Project Activity</title>
     <link href="styles.css" rel="stylesheet">
-</head>
-<body class="dark">
-<div class="layout">
-    <div class="header-text"></div>
-    <div class="content">
+  </head>
+  <body class="dark">
+    <div class="layout">
+      <div class="title">
+        <div class="header-text"></div>
+        <select class="interval-selection" onchange="setDataInterval(this.value)">
+            <option value="3">3개월</option>
+            <option value="6" selected="selected">6개월</option>
+            <option value="12">1년</option>
+        </select>
+      </div>
+      <div class="content">
         <div id="rcf" class="row">
-            <div class="legend-row">
-                <div class="legend">Relative Commit Frequency (RCF)</div>
-                <div class="hr"></div>
-            </div>
-            <div class="clear"></div>
-            <div class="col1">
-                <div class="text">프로젝트의 활동성을 나타내는 지표</div>
-                <label class="label-value">0</label>
-            </div>
-            <div class="col2"><div class="circularGauge"></div></div>
-            <div class="col3"></div>
+          <div class="legend-row">
+            <div class="legend">Relative Commit Frequency (RCF)</div>
+            <div class="hr"></div>
+          </div>
+          <div class="clear"></div>
+          <div class="col1">
+            <div class="text">프로젝트의 활동성을 나타내는 지표</div>
+            <label class="label-value">0</label>
+          </div>
+          <div class="col2"><div class="circularGauge"></div></div>
+          <div class="col3"></div>
         </div>
         <div id="scf" class="row">
-            <div class="legend-row">
-                <div class="legend">Scale of Commit Frequency (SCF)</div>
-                <div class="hr"></div>
-            </div>
-            <div class="clear"></div>
-            <div class="col1">
-                <div class="text">프로젝트의 성장 규모를 나타내는 지표</div>
-                <label class="label-value">0</label>
-            </div>
-            <div class="col2"><div class="circularGauge"></div></div>
-            <div class="col3"></div>
+          <div class="legend-row">
+            <div class="legend">Scale of Commit Frequency (SCF)</div>
+            <div class="hr"></div>
+          </div>
+          <div class="clear"></div>
+          <div class="col1">
+            <div class="text">프로젝트의 성장 규모를 나타내는 지표</div>
+            <label class="label-value">0</label>
+          </div>
+          <div class="col2"><div class="circularGauge"></div></div>
+          <div class="col3"></div>
         </div>
         <div id="ccr" class="row">
-            <div class="legend-row">
-                <div class="legend">Cross Commit Ratio (CCR)</div>
-                <div class="hr"></div>
-            </div>
-            <div class="clear"></div>
-            <div class="col1">
-                <div class="text">프로젝트의 협업 정도를 나타내는 지표</div>
-                <label class="label-value">0</label>
-            </div>
-            <div class="col2"><div class="circularGauge"></div></div>
-            <div class="col3"></div>
+          <div class="legend-row">
+            <div class="legend">Cross Commit Ratio (CCR)</div>
+            <div class="hr"></div>
+          </div>
+          <div class="clear"></div>
+          <div class="col1">
+            <div class="text">프로젝트의 협업 정도를 나타내는 지표</div>
+            <label class="label-value">0</label>
+          </div>
+          <div class="col2"><div class="circularGauge"></div></div>
+          <div class="col3"></div>
         </div>
+      </div>
     </div>
-</div>
-</body>
-<script src="js/jquery-1.9.1.min.js"></script>
-<script src="js/jquery.animateNumbers.js"></script>
-<script src="js/data.js"></script>
-<script src="js/d3.min.js"></script>
-<script src="js/d3.lineGraph.js"></script>
-<script src="js/d3.gaugeGraph.js"></script>
-<script src="js/chart.js"></script>
+  </body>
+  <script src="js/jquery-1.9.1.min.js"></script>
+  <script src="js/jquery.animateNumbers.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/d3.min.js"></script>
+  <script src="js/d3.lineGraph.js"></script>
+  <script src="js/d3.gaugeGraph.js"></script>
+  <script src="js/chart.js"></script>
 </html>
