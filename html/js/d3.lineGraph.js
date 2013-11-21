@@ -47,6 +47,8 @@ function drawLineGraph(chartId, options) {
   var yMin = options.y.min;
   var yMax = options.y.max;
 
+  d3.select(chartId + " svg").remove();
+
   var chart = d3.select(chartId).append("svg")
   .attr("class", "lineGraph")
   .attr("width", width)

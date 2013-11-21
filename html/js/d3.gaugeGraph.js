@@ -37,6 +37,8 @@ function drawGaugeGraph(gaugeId, options) {
 	var centerY = height/2;
 	var radius = Math.min(width,height) / 2 - options.margin;	
 
+  d3.select(gaugeId + " svg").remove();
+
 	//draw chart
 	var chart = d3.select(gaugeId).append("svg")
 	.attr("class", "gaugeGraph")
