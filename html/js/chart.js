@@ -39,7 +39,6 @@ $(window).load(function() {
   if (data.scf.length > 0) {
     processAll("#scf", data.scf, 0, 16);
     processAll("#rcf", data.rcf, 0, 100);
-    processAll("#ruci", data.ruci, 0, 100);
     processAll("#ccr", data.ccr, 0, 100);
   }
 });
