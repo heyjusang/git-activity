@@ -36,9 +36,9 @@ public class RUCI extends Metric {
         return getMedian(interval);
     }
 
-    public double getValue(int timeEnd) {
+    public double getValue(int timeEnd, int interval) {
         double ucia = getUserCommitInterval(timeEnd - 120*MONTH, timeEnd);
-        double uci6 = getUserCommitInterval(timeEnd - 6*MONTH, timeEnd);
+        double uci6 = getUserCommitInterval(timeEnd - interval*MONTH, timeEnd);
         double ratio = uci6 / (ucia + 1E-9);
         double ruci = 100.0 * (1 / (1 + Math.pow(ratio, 2)));
         return ruci;

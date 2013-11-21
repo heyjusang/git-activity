@@ -17,9 +17,9 @@ public class RCF extends Metric {
         return (double)commitCount / (double)(timeEnd - timeFirst);
     }
 
-    public double getValue(int timeEnd) {
+    public double getValue(int timeEnd, int interval) {
         double mcfa = getMeanCommitFrequency(timeEnd - 120*MONTH, timeEnd);
-        double mcf6 = getMeanCommitFrequency(timeEnd - 6*MONTH, timeEnd);
+        double mcf6 = getMeanCommitFrequency(timeEnd - interval*MONTH, timeEnd);
         double ratio = mcf6 / (mcfa + 1E-9);
         double rcf = 100. * (1 - 1 / (1 + Math.pow(ratio, 2)));
         return rcf;

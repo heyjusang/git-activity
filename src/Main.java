@@ -36,10 +36,15 @@ public class Main {
         int nMaxSample = 50;
         JSONObject obj = new JSONObject();
         obj.put("name", target.getProjectName());
-        obj.put("scf", (new SCF(target)).getLogs(nMaxSample));
-        obj.put("rcf", (new RCF(target)).getLogs(nMaxSample));
-        obj.put("ccr", (new CCR(target)).getLogs(nMaxSample));
-        obj.put("ruci", (new RUCI(target)).getLogs(nMaxSample));
+        obj.put("scf", (new SCF(target)).getLogs(nMaxSample, 6));
+        obj.put("rcf", (new RCF(target)).getLogs(nMaxSample, 6));
+        obj.put("ccr", (new CCR(target)).getLogs(nMaxSample, 6));
+        obj.put("scf3", (new SCF(target)).getLogs(nMaxSample, 3));
+        obj.put("rcf3", (new RCF(target)).getLogs(nMaxSample, 3));
+        obj.put("ccr3", (new CCR(target)).getLogs(nMaxSample, 3));
+        obj.put("scf12", (new SCF(target)).getLogs(nMaxSample, 12));
+        obj.put("rcf12", (new RCF(target)).getLogs(nMaxSample, 12));
+        obj.put("ccr12", (new CCR(target)).getLogs(nMaxSample, 12));
         return obj;
     }
 

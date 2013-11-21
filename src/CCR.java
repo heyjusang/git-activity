@@ -17,8 +17,8 @@ public class CCR extends Metric {
         return (double)crossCommitCount / (totalCommitCount + 1.);
     }
 
-    public double getValue(int timeEnd) {
-        double ccr = getCrossCommitRatio(timeEnd - 6*MONTH, timeEnd);
+    public double getValue(int timeEnd, int interval) {
+        double ccr = getCrossCommitRatio(timeEnd - interval*MONTH, timeEnd);
         return 100.0 * ccr;
     }
 }
