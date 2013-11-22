@@ -28,93 +28,112 @@ body
     padding: 60px 0 0 0;
 }
 
+.interval-selection
+{
+  position: relative;
+  float: right;
+  margin-right: 100px;
+  border: 1px solid #7cd2c7;
+  border-radius: 3px;
+  color: white;
+  padding: 10px;
+  width: 130px;
+  font-size : 15px;
+  -webkit-appearance: none;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='42.139,15.518 21.166,36.49 0.193,15.519'/></svg>") right no-repeat;
+  background-color: #7cd2c7;
+  background-transparency: 0.5;
+  background-position: right;
+  background-size: 15px 15px;
+}
+
 .dark .header-text
 {
-    color: white;
+  color: white;
 }
 
 
 .content
 {
-    width: 1070px;
-    height: 750px;
-    padding: 40px 100px;
+  width: 1070px;
+  height: 750px;
+  padding: 40px 100px;
 }
 
 .row
 {
-    width: 1070px;
-    height: 180px;
-    margin-top: 10px;
-    overflow: hidden;
+  width: 1070px;
+  height: 180px;
+  margin-top: 10px;
+  overflow: hidden;
 }
 
 .legend-row
 {
-    position: relative;
-    height: 17px;
-    width: 1500px;
+  position: relative;
+  height: 17px;
+  width: 1500px;
 }
 
 .row::after .legend-row::after
 {
-    content: ' ';
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
+  content: ' ';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
 }
 
 .legend
 {
-    font-family: 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
-    font-weight: 400;
-    font-size: 15px;
-    margin-right: 3px;
-    z-index: 10;
-    float: left;
-    color: white;
+  font-family: 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  margin-right: 3px;
+  z-index: 10;
+  float: left;
+  color: white;
 }
 
 
 .hr
 {
-    width: 1100px;
-    height: 10px;
-    border-bottom: 1px solid #6b7289;
-    float: left;
+  width: 1100px;
+  height: 10px;
+  border-bottom: 1px solid #6b7289;
+  float: left;
 }
 
 
 .clear
 {
-    clear: both;
+  clear: both;
 }
 
 .content .row .col1
 {
-    width: 210px;
-    height: 170px;
-    float: left;
+  width: 210px;
+  height: 170px;
+  float: left;
 }
 
 
 .col1 .text
 {
-    -ms-word-wrap: normal;
-    word-wrap: normal;
-    font-size: 12px;
-    color: #8e93a7;
-    width: 200px;
-    margin: 20px 0 10px;
+  -ms-word-wrap: normal;
+  word-wrap: normal;
+  font-size: 12px;
+  color: #8e93a7;
+  width: 200px;
+  margin: 20px 0 10px;
 }
 
 .col1 .label-value
 {
-    font-family: 'Segoe UI Semibold', 'Helvetica Neue Medium', 'Segoe UI', 'Helvetica Neue', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
-    font-size: 60px;
-    line-height: 60px;
-    font-weight: 600;
+  font-family: 'Segoe UI Semibold', 'Helvetica Neue Medium', 'Segoe UI', 'Helvetica Neue', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: 600;
 }
 
 .content .row .col2
@@ -141,4 +160,27 @@ label
 {
   color: #7cd2c7;
 }
+
+.yAxis .domain
+{
+  fill: none;
+  stroke: #a7acbc;
+}
+
+.yAxis text
+{
+  fill: #a7acbc;
+}
+
+.xAxis .domain
+{
+  fill: none;
+  stroke: #a7acbc;
+}
+
+.xAxis text
+{
+  fill: #a7acbc;
+}
+
 

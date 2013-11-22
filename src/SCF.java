@@ -17,8 +17,8 @@ public class SCF extends Metric {
         return (double)commitCount / (double)(timeEnd - timeFirst);
     }
 
-    public double getValue(int timeEnd) {
-        double mcf = getMeanCommitFrequency(timeEnd - 6*MONTH, timeEnd);
+    public double getValue(int timeEnd, int interval) {
+        double mcf = getMeanCommitFrequency(timeEnd - interval*MONTH, timeEnd);
         double scf = Math.log(mcf*6*MONTH + 1) / Math.log(2);
         return scf;
     }
