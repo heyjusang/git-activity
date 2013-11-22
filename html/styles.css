@@ -28,25 +28,6 @@ body
     padding: 60px 0 0 0;
 }
 
-.interval-selection
-{
-  position: relative;
-  float: right;
-  margin-right: 100px;
-  border: 1px solid #7cd2c7;
-  border-radius: 3px;
-  color: white;
-  padding: 10px;
-  width: 130px;
-  font-size : 15px;
-  -webkit-appearance: none;
-  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline points='42.139,15.518 21.166,36.49 0.193,15.519'/></svg>") right no-repeat;
-  background-color: #7cd2c7;
-  background-transparency: 0.5;
-  background-position: right;
-  background-size: 15px 15px;
-}
-
 .dark .header-text
 {
   color: white;
