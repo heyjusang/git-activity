@@ -1,5 +1,5 @@
 function drawChart(chartId, dataSource, valueMin, valueMax) {
-  range = valueMax-valueMin;
+  var range = valueMax-valueMin;
 	drawLineGraph(chartId,{
     data : dataSource,
     x : {
@@ -16,7 +16,7 @@ function drawChart(chartId, dataSource, valueMin, valueMax) {
 }
 
 function drawGauge(gaugeId, value, valueMin, valueMax) {
-  range = valueMax-valueMin;
+  var range = valueMax-valueMin;
   drawGaugeGraph(gaugeId, {
     data: value,
     section: {
@@ -27,10 +27,19 @@ function drawGauge(gaugeId, value, valueMin, valueMax) {
   });
 }
 
+function drawAnimatingNumber(prefix, data, valueMin, valueMax) {
+  var range = valueMax - valueMin;
+  var value = Number(data[data.length-1].toFixed(2));
+  
+   
+  $(prefix + " .label-value").animateNumbers(value, valueMin, valueMax);
+  $(prefix + " .max-value").text(" / " + valueMax);
+}
+
 function processAll(prefix, data, valueMin, valueMax) {
   drawChart(prefix + " .col3", data, valueMin, valueMax);
   drawGauge(prefix + " .col2 .circularGauge", data[data.length-1], valueMin, valueMax);
-  $(prefix + " .label-value").animateNumbers(Number(data[data.length-1].toFixed(2)));
+  drawAnimatingNumber(prefix, data, valueMin, valueMax);
 }
 
 $(window).load(function() {

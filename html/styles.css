@@ -99,6 +99,7 @@ body
 }
 
 
+
 .col1 .text
 {
   -ms-word-wrap: normal;
@@ -109,12 +110,34 @@ body
   margin: 20px 0 10px;
 }
 
+.col1 .value
+{
+  overflow: hidden;
+  width: 200px;
+  height: 60px;
+  position: relative;
+}
+
 .col1 .label-value
 {
   font-family: 'Segoe UI Semibold', 'Helvetica Neue Medium', 'Segoe UI', 'Helvetica Neue', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
   font-size: 60px;
   line-height: 60px;
   font-weight: 600;
+  width: 150px;
+  float: left;
+}
+
+.col1 .max-value
+{
+  font-family: 'Segoe UI Semibold', 'Helvetica Neue Medium', 'Segoe UI', 'Helvetica Neue', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  position: absolute;
+  bottom: 0;
+  width: 50px;
+  float: left;
+  color: #8e93a7;
 }
 
 .content .row .col2
@@ -135,11 +158,6 @@ body
   height: 165px;
   float: left;
   width: 650px;
-}
-
-label
-{
-  color: #7cd2c7;
 }
 
 .yAxis .domain
