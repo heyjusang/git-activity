@@ -1,23 +1,24 @@
 #!/usr/bin/env python
 import json
+import os
 import pylab
 
-data = json.load(open('train.json'))
-x = [e['rcf'] for e in data]
-y = [e['scf'] for e in data]
-z = [e['ccr'] for e in data]
-w = [e['target'] for e in data]
+for filename in os.listdir('.'):
+    if not filename.endswith('.json'): continue
+    print 'Processing %s' % filename
+    
+    data = json.load(open(filename))
+    y = [e['target'] for e in data]
+       
+    for (i, c) in enumerate(['rcf', 'rcff', 'ccr', 'ccrf']):
+        x = [e[c] for e in data]
+        pylab.subplot(221 + i)
+        pylab.title(c)
+        pylab.plot(x, y, '.')
+    '''
+    x = [e['rcf'] for e in data]
+    y = [e['ccr'] for e in data]
+    pylab.plot(x, y, '.')
+    '''
 
-pylab.subplot(131)
-pylab.title('RCF')
-pylab.plot(x, w, '.')
-
-pylab.subplot(132)
-pylab.title('SCF')
-pylab.plot(y, w, '.')
-
-pylab.subplot(133)
-pylab.title('CCR')
-pylab.plot(z, w, '.')
-
-pylab.savefig('figure.png')
+pylab.savefig('all.png')

@@ -32,6 +32,8 @@ public class Trainer {
             obj.put("rcf", rcf.get(i));
             obj.put("scf", scf.get(i));
             obj.put("ccr", ccr.get(i));
+            obj.put("rcff", rcf.get(i+3));
+            obj.put("ccrf", ccr.get(i+3));
             obj.put("target", rcf.get(i+6));
             ary.add(obj);
         }
@@ -45,7 +47,7 @@ public class Trainer {
             System.out.println("Processing " + projectName);
             Target target = new Target(projectName);
             JSONArray ary = computeTrainData(target);
-            writeFile(ary, "model/" + projectNames + ".json");
+            writeFile(ary, "model/" + projectName + ".json");
         }
     }
 }
