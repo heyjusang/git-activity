@@ -7,8 +7,8 @@ import java.util.Date;
 public abstract class Metric {
     
     private final int DEFAULT_SAMPLES = 50;
-    public static final int MONTH = 4*7*24*60*60;
-    public static final int WEEK = 7*24*60*60;
+    protected static final int MONTH = 4*7*24*60*60;
+    protected static final int WEEK = 7*24*60*60;
     protected Target target;
 
     public Metric(Target target) {
