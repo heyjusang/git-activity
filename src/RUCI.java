@@ -10,17 +10,6 @@ public class RUCI extends Metric {
         super(target);
     }
 
-    private double getMedian(ArrayList<Double> list) {
-        Collections.sort(list);
-        int size = list.size();
-        if (size == 0)
-            return 1E+9;
-        else if(size % 2 == 1)
-            return list.get(size / 2);
-        else
-            return (list.get(size / 2 - 1) + list.get(size / 2)) / 2.0;
-    }
-
     private double getUserCommitInterval(int timeStart, int timeEnd) {
         ArrayList<Double> interval = new ArrayList<Double>();
         for (Entry<String, ArrayList<Integer>> e : this.target.getMap().entrySet()) {

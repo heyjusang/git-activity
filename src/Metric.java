@@ -19,6 +19,17 @@ public abstract class Metric {
         return (int)((new Date()).getTime() / 1000);
     }
 
+    protected double getMedian(ArrayList<Double> list) {
+        Collections.sort(list);
+        int size = list.size();
+        if (size == 0)
+            return 1E+9;
+        else if(size % 2 == 1)
+            return list.get(size / 2);
+        else
+            return (list.get(size / 2 - 1) + list.get(size / 2)) / 2.0;
+    }
+
     public double getValue() {
         return getValue(today());
     }
