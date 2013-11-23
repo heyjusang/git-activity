@@ -1,0 +1,109 @@
+body
+{
+	margin: 0;
+	background-color: white;
+}
+
+.layout
+{
+	width: 1270px;
+	position: relative;
+	background-color: white;
+	font-family: 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+	font-weight: 400;
+	margin: 0 auto;
+}
+
+.header-text
+{
+    font-size: 30px;
+    font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', Helvetica, 'Trebuchet MS', 'Droid Sans', Tahoma, Geneva, sans-serif;
+    font-weight: 200;
+    margin-left: 100px;
+    padding: 60px 0 0 0;
+}
+
+.content
+{
+  width: 1070px;
+  padding: 40px 100px;
+}
+
+.metrics-content
+{
+	height: 210px;
+	display: block;
+}
+
+.metric
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 33%;
+	height: 200px;
+	display: inline-block;
+}
+
+.row1
+{
+	width: 100%;
+	height: 20%;
+	display: block;
+}
+
+.row1 .title
+{
+	font-size: 15px;
+	height: 100%;
+	margin: 0px;
+	display: inline-block;
+}
+
+.row1 .helper
+{
+	background-color: gray;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+
+.row2
+{
+	width: 100%;
+	height: 40%;
+	display: block;
+}
+
+.row2 .label-value
+{
+  font-family: 'Segoe UI Semibold', 'Helvetica Neue Medium', 'Segoe UI', 'Helvetica Neue', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: 600;
+  width: 150px;
+	display: inline-block;
+}
+
+.row2 .max-value
+{
+  font-family: 'Segoe UI Semibold', 'Helvetica Neue Medium', 'Segoe UI', 'Helvetica Neue', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  width: 50px;
+  color: #8e93a7;
+	display: inline-block;
+}
+
+.row3
+{
+	width: 100%;
+	height: 40%;
+}
+
+.prediction-content
+{
+}
+.contributors-content
+{
+}
+
