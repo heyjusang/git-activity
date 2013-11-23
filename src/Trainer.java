@@ -1,4 +1,5 @@
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,11 +8,9 @@ import org.json.simple.JSONObject;
 
 
 public class Trainer {
-    private static final String JSON_PATH = "model/train.json"; 
-
-    private static void writeFile(JSONArray ary) {
+    private static void writeFile(JSONArray ary, String filename) {
         try {
-            FileWriter file = new FileWriter(JSON_PATH);
+            FileWriter file = new FileWriter(filename);
             file.write(ary.toJSONString());
             file.flush();
             file.close();
@@ -40,13 +39,13 @@ public class Trainer {
     }
 
     public static void main(String[] args) {
-        String[] projectNames = {"node", "yobi"};
-        JSONArray bigAry = new JSONArray();
-        for (String projectName : projectNames) {
+        File[] projects = new File("projects").listFiles();
+        for (int i = 0; i < projects.length; ++i) {
+            String projectName = projects[i].getName();
+            System.out.println("Processing " + projectName);
             Target target = new Target(projectName);
             JSONArray ary = computeTrainData(target);
-            bigAry.addAll(ary);
+            writeFile(ary, "model/" + projectNames + ".json");
         }
-        writeFile(bigAry);
     }
 }
