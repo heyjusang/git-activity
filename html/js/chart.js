@@ -30,16 +30,25 @@ function drawGauge(gaugeId, value, valueMin, valueMax) {
 function drawAnimatingNumber(prefix, data, valueMin, valueMax) {
   var range = valueMax - valueMin;
   var value = Number(data[data.length-1].toFixed(2));
-  
    
-  $(prefix + " .label-value").animateNumbers(value, valueMin, valueMax);
+	$(prefix + " .label-value").animateNumbers(value, valueMin, valueMax);
   $(prefix + " .max-value").text(" / " + valueMax);
 }
 
+function drawProgressBar(graphId, value, valueMin, valueMax) {
+  var range = valueMax-valueMin;
+  drawProgressBarGraph(graphId, {
+    value: value,
+    valueMin: valueMin,
+    valueMax: valueMax
+  });
+}
+
 function processAll(prefix, data, valueMin, valueMax) {
-  drawChart(prefix + " .col3", data, valueMin, valueMax);
-  drawGauge(prefix + " .col2 .circularGauge", data[data.length-1], valueMin, valueMax);
   drawAnimatingNumber(prefix, data, valueMin, valueMax);
+  drawProgressBar(prefix + " .row3", data[data.length-1], valueMin, valueMax);
+	// drawChart(prefix + " .col3", data, valueMin, valueMax);
+	// drawGauge(prefix + " .col2 .circularGauge", data[data.length-1], valueMin, valueMax);
 }
 
 $(window).load(function() {
