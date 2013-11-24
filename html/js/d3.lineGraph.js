@@ -13,7 +13,7 @@ function drawLineGraph(chartId, options) {
     },
     dataLine: {
       stroke : "#7cd2c7",
-      strokeWidth : "2px",
+      strokeWidth : "7px",
       fill : "none"
     },
     x : {
@@ -80,24 +80,31 @@ function drawLineGraph(chartId, options) {
 
   //draw GuideLine
 
-  for (var i = 0; i < options.guideLine.values.length; i++) {
-    value = options.guideLine.values[i];
-    color = options.guideLine.colors[Math.min(i, options.guideLine.colors.length)];
-    var guideLine = d3.svg.line()
-    .x(function(d) {
-      return x(d);
-    })
-    .y(function(d) {
-      return y(value);
-    });
+  // for (var i = 0; i < options.guideLine.values.length; i++) {
+  //   value = options.guideLine.values[i];
+  //   color = options.guideLine.colors[Math.min(i, options.guideLine.colors.length)];
+  //   var guideLine = d3.svg.line()
+  //   .x(function(d) {
+  //     return x(d);
+  //   })
+  //   .y(function(d) {
+  //     return y(value);
+  //   });
 
-    var path = chart.append("path")
-    .attr("d", guideLine([xMin,xMax]))
-    .style("shape-rendering", "crispEdges")
-    .style("stroke", color);
-  }
+  //   var path = chart.append("path")
+  //   .attr("d", guideLine([xMin,xMax]))
+  //   .style("shape-rendering", "crispEdges")
+  //   .style("stroke", color);
+  // }
 
-
+  var initLine = d3.svg.line()
+  .interpolate("basis")
+  .x(function(d,i) {
+    return x(i);
+  })
+  .y(function(d) {
+    return y(0);
+  });
 
   var line = d3.svg.line()
   .interpolate("basis")
@@ -109,18 +116,12 @@ function drawLineGraph(chartId, options) {
   });
 
   var path = chart.append("path")
-  .attr("d", line(options.data))
+  .attr("d", initLine(options.data))
   .style(options.dataLine)
-  .style("stroke-width", options.dataLine.strokeWidth);
-
-  //animation
-  var totalLength = path.node().getTotalLength();
-  path
-  .attr("stroke-dasharray", totalLength + " " + totalLength)
-  .attr("stroke-dashoffset", totalLength)
+  .style("stroke-width", options.dataLine.strokeWidth)
   .transition()
   .duration(1000)
   .ease("linear")
-  .attr("stroke-dashoffset", 0);
+  .attr("d", line(options.data));
 
 }

@@ -29,9 +29,15 @@ body
   padding: 40px 100px;
 }
 
+hr
+{
+  background-color: #f2f2f2;
+  border: 0px;
+  height: 2px;
+}
+
 .metrics-content
 {
-	height: 210px;
 	display: block;
 }
 
@@ -40,14 +46,13 @@ body
 	margin-top: 5px;
 	margin-bottom: 5px;
 	width: 33%;
-	height: 200px;
 	display: inline-block;
 }
 
 .row1
 {
 	width: 100%;
-	height: 20%;
+	height: 45px;
 	display: block;
 }
 
@@ -70,7 +75,7 @@ body
 .row2
 {
 	width: 100%;
-	height: 40%;
+	height: 80px;
 	display: block;
 }
 
@@ -97,12 +102,32 @@ body
 .row3
 {
 	width: 100%;
-	height: 40%;
+	height: 40px;
 }
 
 .prediction-content
 {
+	height: 300px;
 }
+
+.prediction-content .title
+{
+	font-size: 15px;
+  vertical-align: middle;
+}
+
+.activity-graph
+{
+  width: 100%;
+  height: 250px;
+}
+
+.activity-graph .domain
+{
+  stroke: #a7acbc;
+  fill: none;
+}
+
 .contributors-content
 {
 }

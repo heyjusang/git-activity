@@ -47,7 +47,6 @@ function drawProgressBar(graphId, value, valueMin, valueMax) {
 function processAll(prefix, data, valueMin, valueMax) {
   drawAnimatingNumber(prefix, data, valueMin, valueMax);
   drawProgressBar(prefix + " .row3", data[data.length-1], valueMin, valueMax);
-	// drawChart(prefix + " .col3", data, valueMin, valueMax);
 	// drawGauge(prefix + " .col2 .circularGauge", data[data.length-1], valueMin, valueMax);
 }
 
@@ -56,4 +55,5 @@ $(window).load(function() {
       processAll("#scf", data.scf, 0, 16);
       processAll("#rcf", data.rcf, 0, 100);
       processAll("#ccr", data.ccr, 0, 100);
+	    drawChart(".activity-graph", data.rcf, 0, 100);
 });
