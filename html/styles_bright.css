@@ -54,17 +54,17 @@ body
 .row1 .title
 {
 	font-size: 15px;
-	height: 100%;
-	margin: 0px;
 	display: inline-block;
+  position: relative;
+  vertical-align: middle;
 }
 
 .row1 .helper
 {
-	background-color: gray;
 	width: 20px;
 	height: 20px;
 	display: inline-block;
+  position: relative;
 }
 
 .row2
