@@ -11,13 +11,16 @@ function drawProgressBarGraph(chartId, options) {
     },
     value: 50,
     valueMin: 0,
-    valueMax: 100
+    valueMax: 100,
+    guides: [25, 60],
+	  guideColors: ["#76c8bd", "#f7c676", "#c5819a"]
   }
 
   options = $.extend(true,{},defaults,options);
 
   var width = options.width;
   var height = options.height;
+  var value = options.value;
 
   var xStart = 0 + options.margin.left;
   var xEnd = width - options.margin.right;
@@ -44,14 +47,60 @@ function drawProgressBarGraph(chartId, options) {
   .attr("height", 16)
   .attr("rx", 8)
   .attr("ry", 8)
-  .attr("fill", "#76c8bd");
+  .attr("fill", "#76c8bd")
+  .attr("width", x(options.valueMin));
 
-  var range = options.valueMax - options.valueMin;
+  var guides = options.guides;
+  var guideColors = options.guideColors;
+  var ticks = [];
+
+  var i;
+
+  for (i=0;i<guides.length;i++) {
+    if (guides[i] <= value) {
+      ticks.push({
+        tick: guides[i],
+        color: guideColors[i]
+      });
+    }
+    else {
+      break;
+    }
+  }
+
+  ticks.push({
+    tick: value,
+    color: guideColors[i]
+  });
 
   progress
   .attr("width", x(options.valueMin))
+  .attr("fill", ticks[0].color)
   .transition()
-  .duration(1000)
+  .duration(1000/ticks.length)
   .ease("linear")
-  .attr("width", x(options.value)); //TODO color
+  .attr("width", x(ticks[0].tick))
+  .attr("fill", ticks[0].color) 
+  .each("end", function() {generateAnimation(1)});
+
+
+//TODO duration
+  function generateAnimation(i) {
+    if (ticks.length < i + 1) {
+      return;
+    }
+    else {
+      progress
+      .transition()
+      .attr("width", x(ticks[i-1].tick))
+      .attr("fill", ticks[i-1].color) 
+      .duration(1000/ticks.length)
+      .ease("linear")
+      .attr("width", x(ticks[i].tick))
+      .attr("fill", ticks[i].color) 
+      .each("end", function() {generateAnimation(i+1)});
+    }
+  };
+
+
 }
