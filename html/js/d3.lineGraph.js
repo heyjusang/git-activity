@@ -2,7 +2,7 @@ function drawLineGraph(chartId, options) {
 	var defaults = {
 		data : {},
 		margin : {
-			left : 30,
+			left : 5,
 			right : 5,
 			top : 10,
 			bottom : 20
@@ -34,7 +34,7 @@ function drawLineGraph(chartId, options) {
 
   options = $.extend(true,{},defaults,options);
 
-  var width = $(chartId).width();
+  var width = options.data.length * 50;
   var height = $(chartId).height();
 
   var xStart = 0 + options.margin.left;
@@ -54,12 +54,16 @@ function drawLineGraph(chartId, options) {
   .attr("width", width)
   .attr("height", height);
 
+  var yAxisArea = d3.select(".yAxis-area").append("svg")
+  .attr("width", $(".yAxis-area").width())
+  .attr("height", height);
+
 
   var x = d3.scale.linear().domain([xMin, xMax]).range([xStart, xEnd]);
   var y = d3.scale.linear().domain([yMin, yMax]).range([yStart, yEnd]);
 
   //TODO control tick
-  var xAxis = d3.svg.axis().scale(x).ticks(25);
+  var xAxis = d3.svg.axis().scale(x).ticks(options.data.length);
   var yAxis = d3.svg.axis().scale(y).ticks(4).orient("left");
 
   chart.append("g")
@@ -70,8 +74,8 @@ function drawLineGraph(chartId, options) {
   .style("font-size", options.axis.fontSize)
   .call(xAxis);
 
-  chart.append("g")
-  .attr("transform", "translate(" + xStart + ",0)")
+  yAxisArea.append("g")
+  .attr("transform", "translate(" + 30 + ",0)")
   .attr("class", "yAxis")
   .style("shape-rendering", "crispEdges")
   .style("opacity", options.axis.opacity)
