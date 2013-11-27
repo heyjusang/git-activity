@@ -13,6 +13,7 @@ function drawChart(chartId, dataSource, valueMin, valueMax) {
       values: [range/4, 3*range/4]
     }
   });
+  $(chartId).scrollLeft(2000);
 }
 
 function drawGauge(gaugeId, value, valueMin, valueMax) {
@@ -40,7 +41,8 @@ function drawProgressBar(graphId, value, valueMin, valueMax) {
   drawProgressBarGraph(graphId, {
     value: value,
     valueMin: valueMin,
-    valueMax: valueMax
+    valueMax: valueMax,
+    guides: [range/4, 3*range/4],
   });
 }
 
@@ -52,8 +54,8 @@ function processAll(prefix, data, valueMin, valueMax) {
 
 $(window).load(function() {
   $('.header-text').text("Project Activity - " + data.name);
-      processAll("#scf", data.scf, 0, 16);
-      processAll("#rcf", data.rcf, 0, 100);
-      processAll("#ccr", data.ccr, 0, 100);
-	    drawChart(".activity-graph", data.rcf, 0, 100);
+  processAll("#scf", data.scf, 0, 16);
+  processAll("#rcf", data.rcf, 0, 100);
+  processAll("#ccr", data.ccr, 0, 100);
+  drawChart(".activity-graph", data.rcf, 0, 100);
 });
