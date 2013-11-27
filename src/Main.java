@@ -40,6 +40,7 @@ public class Main {
         obj.put("rcf", (new RCF(target)).getLogs(nMaxSample, 6));
         obj.put("ccr", (new CCR(target)).getLogs(nMaxSample, 6));
         obj.put("topContributor", target.getTopContributors());
+        obj.put("lastDate", target.getDate());
         return obj;
     }
 

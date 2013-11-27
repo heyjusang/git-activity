@@ -1,6 +1,7 @@
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -130,7 +131,6 @@ public class Target {
         return this.map;
     }
     
-    
     public ArrayList<JSONObject> getTopContributors() {
     	ArrayList<Entry<String, ArrayList<Integer>>> entries = new ArrayList<Entry<String, ArrayList<Integer>>>(this.map.entrySet());
     	Collections.sort(entries, new Comparator<Entry<String, ArrayList<Integer>>>() {
@@ -150,11 +150,15 @@ public class Target {
     		json.put("count", entry.getValue().size());
     		sorted.add(json);
     	}
-    		
-    	
-    	
-    		
     	return sorted;
     }
+
+    public String getDate() {
+      Calendar c = Calendar.getInstance();
+      int year = c.get(Calendar.YEAR);
+      int month = c.get(Calendar.MONTH) + 1;
+      return year + "-" + month;
+    }
+
     
 }
