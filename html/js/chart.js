@@ -1,4 +1,4 @@
-function drawChart(chartId, dataSource, valueMin, valueMax) {
+function drawChart(chartId, dataSource, lastDate, valueMin, valueMax) {
   var range = valueMax-valueMin;
 	drawLineGraph(chartId,{
     data : dataSource,
@@ -11,7 +11,8 @@ function drawChart(chartId, dataSource, valueMin, valueMax) {
     },
     guideLine: {
       values: [range/4, 3*range/4]
-    }
+    },
+    lastDate: lastDate
   });
   $(chartId).scrollLeft(2000);
 
@@ -62,6 +63,6 @@ $(window).load(function() {
   processAll("#scf", data.scf, 0, 16);
   processAll("#rcf", data.rcf, 0, 100);
   processAll("#ccr", data.ccr, 0, 100);
-  drawChart(".activity-graph", data.rcf, 0, 100);
+  drawChart(".activity-graph", data.rcf, data.lastDate, 0, 100);
   getTopContributors(".top-contributors", data.topContributor);
 });

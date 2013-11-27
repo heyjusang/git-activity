@@ -29,7 +29,8 @@ function drawLineGraph(chartId, options) {
     guideLine: {
       values: [25, 75],
 			colors: ["#f7c676", "#c5819a"]
-    }
+    },
+    lastDate: "2013-11"
   };
 
   options = $.extend(true,{},defaults,options);
@@ -37,9 +38,9 @@ function drawLineGraph(chartId, options) {
   var width = options.data.length * 50;
   var height = $(chartId).height();
 
-  var xStart = 0 + options.margin.left;
+  var xStart = 0 + options.margin.left + 20;
   var xEnd = width - options.margin.right;
-  var yStart = height - options.margin.bottom;
+  var yStart = height - options.margin.bottom - 30;
   var yEnd = 0 + options.margin.top;
 
   var xMin = options.x.min;
@@ -62,8 +63,24 @@ function drawLineGraph(chartId, options) {
   var x = d3.scale.linear().domain([xMin, xMax]).range([xStart, xEnd]);
   var y = d3.scale.linear().domain([yMin, yMax]).range([yStart, yEnd]);
 
+  var year = options.lastDate.split("-")[0];
+  var month = options.lastDate.split("-")[1];
+  var markedYear;
   //TODO control tick
-  var xAxis = d3.svg.axis().scale(x).ticks(options.data.length);
+  var xAxis = d3.svg.axis().scale(x).ticks(options.data.length)
+  .tickFormat(function(d,i) {
+    if (i == options.data.length)
+      return; 
+
+    date = new Date(year, month - (options.data.length - i));
+    if (markedYear == date.getFullYear()) {
+      return (date.getMonth() + 1);
+    }
+    else {
+      markedYear = date.getFullYear();
+      return date.getFullYear() + "-" + (date.getMonth() + 1); 
+    }
+  });
   var yAxis = d3.svg.axis().scale(y).ticks(4).orient("left");
 
   chart.append("g")
@@ -72,7 +89,17 @@ function drawLineGraph(chartId, options) {
   .style("shape-rendering", "crispEdges")
   .style("opacity", options.axis.opacity)
   .style("font-size", options.axis.fontSize)
-  .call(xAxis);
+  .call(xAxis)
+  .selectAll("text")
+  .style("text-anchor", "end")
+  .attr("dx", "-.8em")
+  .attr("dy", ".15em")
+  .attr("transform", function(d) {
+    return "rotate(-65)" 
+  });
+
+
+
 
   yAxisArea.append("g")
   .attr("transform", "translate(" + 30 + ",0)")
