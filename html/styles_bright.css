@@ -126,9 +126,8 @@ hr
 .activity-graph
 {
   width: 1000px;
-  height: 250px;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  height: 300px;
+  overflow: auto;
   float:left;
 }
 

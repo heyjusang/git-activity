@@ -14,18 +14,17 @@ function drawChart(chartId, dataSource, valueMin, valueMax) {
     }
   });
   $(chartId).scrollLeft(2000);
-}
 
-function drawGauge(gaugeId, value, valueMin, valueMax) {
-  var range = valueMax-valueMin;
-  drawGaugeGraph(gaugeId, {
-    data: value,
-    section: {
-      startValue: valueMin,
-      endValue: valueMax,
-      ticks: [range/4, range/2, 3*range/4]
+  var element = $(chartId).jScrollPane();
+  var api = element.data('jsp');
+  element.bind(
+    'mousewheel',
+    function (event, delta, deltaX, deltaY)
+    {
+      api.scrollByX(delta * 30);
+      return false;
     }
-  });
+  );
 }
 
 function drawAnimatingNumber(prefix, data, valueMin, valueMax) {
@@ -56,6 +55,7 @@ function processAll(prefix, data, valueMin, valueMax) {
   drawAnimatingNumber(prefix, data, valueMin, valueMax);
   drawProgressBar(prefix + " .row3", data[data.length-1], valueMin, valueMax);
 }
+
 
 $(window).load(function() {
   $('.header-text').text("Project Activity - " + data.name);

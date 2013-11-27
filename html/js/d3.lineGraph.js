@@ -5,7 +5,7 @@ function drawLineGraph(chartId, options) {
 			left : 5,
 			right : 5,
 			top : 10,
-			bottom : 20
+			bottom : 50
 		},
 		axis : {
 			fontSize: "12px",
