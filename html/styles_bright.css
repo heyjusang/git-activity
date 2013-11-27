@@ -108,12 +108,7 @@ hr
 .prediction-content
 {
 	height: 300px;
-}
-
-.prediction-content .title
-{
-	font-size: 15px;
-  vertical-align: middle;
+  margin-bottom: 50px;
 }
 
 .prediction-content .domain
@@ -140,5 +135,45 @@ hr
 
 .contributors-content
 {
+	height: 300px;
 }
+.top-contributors
+{
+  height: 250px;
+}
+
+.contributor
+{
+  width: 200px;
+  height: 100px;
+  margin : 5px;
+  float: left;
+}
+
+.contributor-image
+{
+  width: 80px; 
+  height: 80px; 
+  float: left;
+}
+
+.contributor-information
+{
+  width: 110px;
+  height: 70px;
+  padding: 5px;
+  float: left;
+}
+.contributor-name
+{
+  overflow: hidden;
+  font-size: 15px;
+}
+
+.contributor-commit-count
+{
+  font-size: 30px;
+  font-weight: 600;
+}
+
 

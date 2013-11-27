@@ -46,10 +46,15 @@ function drawProgressBar(graphId, value, valueMin, valueMax) {
   });
 }
 
+function getTopContributors(parentId, data) {
+  drawTopContributors(parentId, {
+    data: data
+  });
+}
+
 function processAll(prefix, data, valueMin, valueMax) {
   drawAnimatingNumber(prefix, data, valueMin, valueMax);
   drawProgressBar(prefix + " .row3", data[data.length-1], valueMin, valueMax);
-	// drawGauge(prefix + " .col2 .circularGauge", data[data.length-1], valueMin, valueMax);
 }
 
 $(window).load(function() {
@@ -58,4 +63,5 @@ $(window).load(function() {
   processAll("#rcf", data.rcf, 0, 100);
   processAll("#ccr", data.ccr, 0, 100);
   drawChart(".activity-graph", data.rcf, 0, 100);
+  getTopContributors(".top-contributors", data.topContributor);
 });
