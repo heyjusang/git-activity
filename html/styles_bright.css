@@ -166,12 +166,19 @@ hr
 .contributor-name
 {
   overflow: hidden;
-  font-size: 15px;
+  font-size: 12px;
+}
+
+.contributor-commit-title
+{
+  margin-top : 10px;
+  overflow: hidden;
+  font-size: 11px;
 }
 
 .contributor-commit-count
 {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 600;
 }
 

@@ -11,8 +11,10 @@ function drawTopContributors(parentId, options) {
     $("#"+id).append('<img class="contributor-image" src="images/contributor_default.png"></img>');
     $("#"+id).append('<div class="contributor-information"></div>');
     $("#"+id + " .contributor-information").append('<div class="contributor-name"></div>');
+    $("#"+id + " .contributor-information").append('<div class="contributor-commit-title"></div>');
     $("#"+id + " .contributor-information").append('<div class="contributor-commit-count"></div>');
     $("#"+id + " .contributor-name").text(contributor.name);
+    $("#"+id + " .contributor-commit-title").text("커밋 수 : ");
     $("#"+id + " .contributor-commit-count").text(contributor.count);
   }
 }
