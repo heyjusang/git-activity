@@ -39,12 +39,6 @@ public class Main {
         obj.put("scf", (new SCF(target)).getLogs(nMaxSample, 6));
         obj.put("rcf", (new RCF(target)).getLogs(nMaxSample, 6));
         obj.put("ccr", (new CCR(target)).getLogs(nMaxSample, 6));
-        obj.put("scf3", (new SCF(target)).getLogs(nMaxSample, 3));
-        obj.put("rcf3", (new RCF(target)).getLogs(nMaxSample, 3));
-        obj.put("ccr3", (new CCR(target)).getLogs(nMaxSample, 3));
-        obj.put("scf12", (new SCF(target)).getLogs(nMaxSample, 12));
-        obj.put("rcf12", (new RCF(target)).getLogs(nMaxSample, 12));
-        obj.put("ccr12", (new CCR(target)).getLogs(nMaxSample, 12));
         return obj;
     }
 
