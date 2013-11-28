@@ -18,6 +18,6 @@ public class SCF extends Metric {
     public double getValue(int timeEnd) {
         int commitCount = getCommitCount(timeEnd - DEFAULT_INTERVAL, timeEnd);
         double scf = Math.log(commitCount + 1) / Math.log(2) * (100. / 12);
-        return Math.max(scf, 100.0);
+        return Math.min(scf, 100.0);
     }
 }

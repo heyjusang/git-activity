@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,12 +5,13 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-
 public class Trainer {
-    private static void writeFile(JSONArray ary, String filename) {
+    private static final String BACKTEST_DIRECTORY = "backtest/";
+
+    private static void writeFile(JSONArray trainData, String filename) {
         try {
             FileWriter file = new FileWriter(filename);
-            file.write(ary.toJSONString());
+            file.write(trainData.toJSONString());
             file.flush();
             file.close();
         } catch (IOException e) {
@@ -19,25 +19,16 @@ public class Trainer {
         }
     }
 
-    private static JSONArray computeTrainData(Target target) {
-        int nMaxSample = (1 << 20);
-        int timeEnd = Metric.today();
-        JSONArray ary = new JSONArray();
-        ArrayList<Double> rcf = (new RCF(target)).getLogs(nMaxSample);
-        ArrayList<Double> scf = (new SCF(target)).getLogs(nMaxSample);
-        ArrayList<Double> ccr = (new CCR(target)).getLogs(nMaxSample);
+    private static JSONArray getTrainData(Target target) {
+        JSONArray trainData = new JSONArray();
+        ArrayList<Double> rcf = (new RCF(target)).getLogs();
         for (int i = 0; i < rcf.size() - 6; i++) {
             JSONObject obj = new JSONObject();
             obj.put("name", target.getProjectName());
             obj.put("rcf", rcf.get(i));
-            obj.put("scf", scf.get(i));
-            obj.put("ccr", ccr.get(i));
-            obj.put("rcff", rcf.get(i+3));
-            obj.put("ccrf", ccr.get(i+3));
-            obj.put("target", rcf.get(i+6));
-            ary.add(obj);
+            trainData.add(obj);
         }
-        return ary;
+        return trainData;
     }
 
     public static void main(String[] args) {
@@ -46,8 +37,8 @@ public class Trainer {
             String projectName = projects[i].getName();
             System.out.println("Processing " + projectName);
             Target target = new Target(projectName);
-            JSONArray ary = computeTrainData(target);
-            writeFile(ary, "model/" + projectName + ".json");
+            JSONArray trainData = getTrainData(target);
+            writeFile(trainData, BACKTEST_DIRECTORY + projectName + ".json");
         }
     }
 }

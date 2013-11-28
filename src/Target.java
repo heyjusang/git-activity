@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,12 +10,11 @@ import org.eclipse.jgit.diff.RawTextComparator;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevSort;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.util.io.DisabledOutputStream;
-
 
 public class Target {
     private static final String PROJECTS_DIRECTORY = "projects/";
@@ -117,9 +115,5 @@ public class Target {
 
     public ArrayList<Integer> getListCrossCommitTime() {
         return this.listCrossCommitTime;
-    }
-
-    public HashMap<String, ArrayList<Integer>> getMap() {
-        return this.map;
     }
 }
