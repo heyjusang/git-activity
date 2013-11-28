@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
@@ -20,9 +19,6 @@ import org.eclipse.jgit.revwalk.RevSort;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.util.io.DisabledOutputStream;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 public class Target {
     private static final String PROJECTS_DIRECTORY = "projects/";
@@ -124,24 +120,17 @@ public class Target {
     public ArrayList<Integer> getListCrossCommitTime() {
         return this.listCrossCommitTime;
     }
-
-    public HashMap<String, ArrayList<Integer>> getMap() {
-        return this.map;
-    }
     
     public ArrayList<JSONObject> getTopContributors() {
     	ArrayList<Entry<String, ArrayList<Integer>>> entries = new ArrayList<Entry<String, ArrayList<Integer>>>(this.map.entrySet());
     	Collections.sort(entries, new Comparator<Entry<String, ArrayList<Integer>>>() {
-    		
     		@Override
     		public int compare(Map.Entry<String,java.util.ArrayList<Integer>> arg0, Map.Entry<String,java.util.ArrayList<Integer>> arg1) {
     			return arg1.getValue().size() - arg0.getValue().size();
     		};
     	});
-    	
     	ArrayList<JSONObject> sorted = new ArrayList<JSONObject>();
-    	
-    	for (int i=0;i<10;i++) {
+    	for (int i = 0; i < 10; i++) {
     		Entry<String, ArrayList<Integer>> entry = entries.get(i);
     		JSONObject json = new JSONObject();
     		json.put("name", entry.getKey());
@@ -150,5 +139,4 @@ public class Target {
     	}
     	return sorted;
     }
-
 }

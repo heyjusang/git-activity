@@ -22,7 +22,8 @@ public class Trainer {
     private static JSONArray getTrainData(Target target) {
         JSONArray trainData = new JSONArray();
         ArrayList<Double> rcf = (new RCF(target)).getLogs();
-        trainData.add(rcf);
+        trainData.add("name", target.getProjectName());
+        trainData.add("rcf", rcf);
         return trainData;
     }
 
