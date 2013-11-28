@@ -134,8 +134,29 @@ hr
 
 .contributors-content
 {
-	height: 300px;
+	height: 600px;
 }
+
+.donuts
+{
+ height: 300px; 
+ display: block;
+}
+
+.donuts .total
+{
+  width: 500px;
+  height: 250px;
+  display:inline-block;
+}
+
+.donuts .top
+{
+  width: 500px;
+  height: 250px;
+  display:inline-block;
+}
+
 .top-contributors
 {
   height: 250px;
@@ -146,7 +167,18 @@ hr
   width: 200px;
   height: 100px;
   margin : 5px;
+  margin-bottom: 20px;
   float: left;
+}
+
+.contributor .row1 {
+  width: 200px;
+  height: 90px;
+}
+
+.contributor .row2 {
+  width: 200px;
+  height: 5px;
 }
 
 .contributor-image
@@ -162,6 +194,14 @@ hr
   height: 70px;
   padding: 5px;
   float: left;
+}
+
+.contributor-ranking-bar
+{
+  background: black;
+  width: 200px;
+  height: 5px;
+  padding: 5px;
 }
 .contributor-name
 {

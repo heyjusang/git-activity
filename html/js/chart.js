@@ -1,4 +1,4 @@
-function drawChart(chartId, dataSource, lastDate, valueMin, valueMax) {
+function drawActivityGraph(chartId, dataSource, lastDate, valueMin, valueMax) {
   var range = valueMax-valueMin;
 	drawLineGraph(chartId,{
     data : dataSource,
@@ -14,6 +14,7 @@ function drawChart(chartId, dataSource, lastDate, valueMin, valueMax) {
     },
     lastDate: lastDate
   });
+
   $(chartId).scrollLeft(2000);
 
   var element = $(chartId).jScrollPane();
@@ -46,8 +47,18 @@ function drawProgressBar(graphId, value, valueMin, valueMax) {
   });
 }
 
-function getTopContributors(parentId, data) {
+function setTopContributors(parentId, data) {
   drawTopContributors(parentId, {
+    data: data
+  });
+}
+
+function drawDonuts(prefix, data) {
+  drawTotalDonut(prefix + " .total",  {
+    data: data,
+    total: 20000
+  });
+  drawTopDonut(prefix + " .top",  {
     data: data
   });
 }
@@ -60,9 +71,14 @@ function processAll(prefix, data, valueMin, valueMax) {
 
 $(window).load(function() {
   $('.header-text').text("Project Activity - " + data.name);
-  processAll("#scf", data.scf, 0, 16);
   processAll("#rcf", data.rcf, 0, 100);
+  processAll("#scf", data.scf, 0, 12);
   processAll("#ccr", data.ccr, 0, 100);
-  drawChart(".activity-graph", data.rcf, data.lastDate, 0, 100);
-  getTopContributors(".top-contributors", data.topContributor);
+  drawActivityGraph(".activity-graph", data.rcf, data.lastDate, 0, 100);
+  drawDonuts(".donuts", data.topContributor);
+  setTopContributors(".top-contributors", data.topContributor);
+  $(document).tooltip({
+    items: "img.helper",
+    content: "ddddd"
+  });
 });
