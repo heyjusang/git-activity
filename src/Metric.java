@@ -3,17 +3,17 @@ import java.util.Collections;
 import java.util.Date;
 
 public abstract class Metric {
-    private final int DEFAULT_SAMPLES = 50;
-    private final int DEFAULT_INTERVAL = 6;
-    protected static final int MONTH = 4*7*24*60*60;
     protected static final int WEEK = 7*24*60*60;
+    protected static final int MONTH = 4*WEEK;
+    protected static final int DEFAULT_UNIT = MONTH;
+    protected static final int DEFAULT_INTERVAL = 6*MONTH;
     protected Target target;
 
     public Metric(Target target) {
         this.target = target;
     }
 
-    public static int today() {
+    private static int today() {
         return (int)((new Date()).getTime() / 1000);
     }
 
@@ -28,24 +28,16 @@ public abstract class Metric {
             return (list.get(size / 2 - 1) + list.get(size / 2)) / 2.0;
     }
 
-    public double getValue() {
-        return getValue(today(), DEFAULT_INTERVAL);
-    }
-
     public ArrayList<Double> getLogs() {
-        return getLogs(DEFAULT_SAMPLES, DEFAULT_INTERVAL);
-    }
-
-    public ArrayList<Double> getLogs(int nMaxSample, int interval) {
-        ArrayList<Double> result = new ArrayList<Double>();
+        ArrayList<Double> logs = new ArrayList<Double>();
         int timeEnd = today();
-        for (int i = 0; i < nMaxSample; i++) {
+        for (;;) {
             if (timeEnd < this.target.getListCommitTime().get(0)) break;
-            result.add(getValue(timeEnd, interval));
-            timeEnd -= MONTH;
+            logs.add(getValue(timeEnd));
+            timeEnd -= DEFAULT_UNIT;
         }
-        Collections.reverse(result);
-        return result;
+        Collections.reverse(logs);
+        return logs;
     }
 
     public abstract double getValue(int timeEnd);
