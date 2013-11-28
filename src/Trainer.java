@@ -22,18 +22,14 @@ public class Trainer {
     private static JSONArray getTrainData(Target target) {
         JSONArray trainData = new JSONArray();
         ArrayList<Double> rcf = (new RCF(target)).getLogs();
-        for (int i = 0; i < rcf.size() - 6; i++) {
-            JSONObject obj = new JSONObject();
-            obj.put("name", target.getProjectName());
-            obj.put("rcf", rcf.get(i));
-            trainData.add(obj);
-        }
+        trainData.add(rcf);
         return trainData;
     }
 
     public static void main(String[] args) {
         File[] projects = new File("projects").listFiles();
         for (int i = 0; i < projects.length; ++i) {
+            if (projects[i].isDirectory() == false) continue;
             String projectName = projects[i].getName();
             System.out.println("Processing " + projectName);
             Target target = new Target(projectName);
