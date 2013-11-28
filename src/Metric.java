@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.Date;
 
 public abstract class Metric {
-    public static final int WEEK = 7*24*60*60*1000;
+    public static final int WEEK = 7*24*60*60;
     public static final int MONTH = 4*WEEK;
     public static final int DEFAULT_UNIT = MONTH;
     public static final int DEFAULT_INTERVAL = 6*MONTH;
@@ -14,7 +14,7 @@ public abstract class Metric {
     }
 
     public static int today() {
-        return (int)((new Date()).getTime());
+        return (int)((new Date()).getTime() / 1000);
     }
 
     protected double getMedian(ArrayList<Double> list) {

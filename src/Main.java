@@ -3,6 +3,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Main {
@@ -31,13 +34,23 @@ public class Main {
     }
 
     private static void computeMetrics(JSONObject obj, Target target) {
-        obj.put("today", Metric.today());
+        obj.put("today", ((long)Metric.today()) * 1000);
+        obj.put("name", target.getProjectName());
         obj.put("unit", Metric.DEFAULT_UNIT);
         obj.put("size", target.getListCommitTime().size());
         obj.put("activity", (new RCF(target)).getLogs());
         obj.put("scale", (new SCF(target)).getValue());
         obj.put("cooperation", (new CCR(target)).getValue());
-        obj.put("topContributor", target.getTopContributors());
+        ArrayList<Entry<String,Integer>> ranking = target.getTopContributors();
+        JSONArray topContributor = new JSONArray();
+        int n = Math.min(ranking.size(), 10);
+        for (int i = 0; i < n; i++) {
+            JSONObject row = new JSONObject();
+            row.put("name", ranking.get(i).getKey());
+            row.put("count", ranking.get(i).getValue());
+            topContributor.add(row);
+        }
+        obj.put("topContributor", topContributor);
     }
 
     private static void predictFuture(JSONObject obj) {

@@ -1,4 +1,6 @@
 import java.io.File;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -121,22 +123,17 @@ public class Target {
         return this.listCrossCommitTime;
     }
     
-    public ArrayList<JSONObject> getTopContributors() {
-    	ArrayList<Entry<String, ArrayList<Integer>>> entries = new ArrayList<Entry<String, ArrayList<Integer>>>(this.map.entrySet());
-    	Collections.sort(entries, new Comparator<Entry<String, ArrayList<Integer>>>() {
-    		@Override
-    		public int compare(Map.Entry<String,java.util.ArrayList<Integer>> arg0, Map.Entry<String,java.util.ArrayList<Integer>> arg1) {
-    			return arg1.getValue().size() - arg0.getValue().size();
-    		};
-    	});
-    	ArrayList<JSONObject> sorted = new ArrayList<JSONObject>();
-    	for (int i = 0; i < 10; i++) {
-    		Entry<String, ArrayList<Integer>> entry = entries.get(i);
-    		JSONObject json = new JSONObject();
-    		json.put("name", entry.getKey());
-    		json.put("count", entry.getValue().size());
-    		sorted.add(json);
-    	}
-    	return sorted;
+    public ArrayList<Entry<String, Integer>> getTopContributors() {
+    	ArrayList<Entry<String, Integer>> ranking = new ArrayList<Entry<String, Integer>>();;
+        for (Map.Entry<String, ArrayList<Integer>> entry : this.map.entrySet()) {
+            ranking.add(new AbstractMap.SimpleEntry<String, Integer>(entry.getKey(), entry.getValue().size()));
+        }
+        Collections.sort(ranking, new Comparator<Entry<String, Integer>>() {
+            @Override
+            public int compare(Entry<String, Integer> arg0, Entry<String, Integer> arg1) {
+                return arg1.getValue() - arg0.getValue();
+            }
+        });
+        return ranking;
     }
 }
