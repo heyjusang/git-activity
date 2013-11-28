@@ -70,6 +70,58 @@ function processAll(prefix, data, valueMin, valueMax) {
   drawProgressBar(prefix + " .row3", data, valueMin, valueMax);
 }
 
+function showTooltip(tag) {
+
+  var Tag = {
+    rcf: "rcf",
+    scf: "scf",
+    ccr: "ccr",
+    activityGraph: "activity-graph",
+    commitInformation: "commit-information"
+  };
+
+  var description;
+  var badScope = "0 ~ 24";
+  var normalScope = "25 ~ 74";
+  var goodScope = "75 ~ 100";
+  
+  if (tag == Tag.rcf) {
+    description = "활동성을 나타냅니다. 활동성은 이렇게 이렇게 저렇게 저렇게 구합니다.";
+  }
+  else if (tag == Tag.scf) {
+    description = "성장규모를 나타냅니다. 성장규모는 이렇게 이렇게 저렇게 저렇게 구합니다.";
+  }
+  else if (tag == Tag.ccr) {
+    description = "협업정도를 나타냅니다. 협업정도는 이렇게 이렇게 저렇게 저렇게 구합니다.";
+  }
+  else if (tag == Tag.activityGraph) {
+    description = "활동성의 변화 그래프입니다. 활동성은 이렇게 이렇게 저렇게 저렇게 구합니다.";
+  }
+  else if (tag == Tag.commitInformation) {
+    description = "커밋 분포 정보를 나타냅니다. 첫번째는 커밋을 많이 한 상위 10명의 커밋 비율이고 두번째 그래프는 그냥 딱보면 아는 그거입니다";
+  }
+
+  var format = "<div class='tooltip-description'>" + description + "</div>";
+
+  if (tag == Tag.rcf || tag == Tag.scf || tag == Tag.ccr) {
+
+    var grades = " <div class='tooltip-grades'"
+    + "<p>" + goodScope + " : " + "<span class='good'>좋아요</span>" + "</p>"
+    + "<p>" + normalScope + " : " + "<span class='normal'>보통이요</span>" + "</p>"
+    + "<p>" + badScope + " : " + "<span class='bad'>나빠요</span>" + "</p>"
+    + "</div>";
+
+    format += grades;
+  }
+
+
+  return format;
+}
+
+
+
+
+
 
 $(window).load(function() {
   $('.header-text').text("Project Activity - " + data.name);
@@ -81,6 +133,8 @@ $(window).load(function() {
   setTopContributors(".top-contributors", data.topContributor);
   $(document).tooltip({
     items: "img.helper",
-    content: "ddddd"
+    content: function() {
+      return showTooltip($(this).attr("alt"));
+    }
   });
 });
