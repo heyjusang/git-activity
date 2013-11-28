@@ -30,8 +30,7 @@ public class Main {
         }
     }
 
-    private static JSONObject computeMetrics(Target target) {
-        JSONObject obj = new JSONObject();
+    private static void computeMetrics(JSONObject obj, Target target) {
         obj.put("name", target.getProjectName());
         obj.put("today", Metric.today());
         obj.put("unit", Metric.DEFAULT_UNIT);
@@ -39,13 +38,21 @@ public class Main {
         obj.put("activity", (new RCF(target)).getLogs());
         obj.put("scale", (new SCF(target)).getValue());
         obj.put("cooperation", (new CCR(target)).getValue());
-        return obj;
+    }
+
+    private static void predictFuture(JSONObject obj) {
+        ArrayList<Double> future = new ArrayList<Double>();
+        for (int i = 0; i < 6; i++)
+            future.add(50.);
+        obj.put("future", future);
     }
 
     public static void main(String[] args) {
         String projectName = getProjectName();
         Target target = new Target(projectName);
-        JSONObject obj = computeMetrics(target);
+        JSONObject obj = new JSONObject();
+        computeMetrics(obj, target);
+        predictFuture(obj);
         writeFile(obj);
     }
 }
