@@ -31,13 +31,13 @@ public class Main {
     }
 
     private static void computeMetrics(JSONObject obj, Target target) {
-        obj.put("name", target.getProjectName());
         obj.put("today", Metric.today());
         obj.put("unit", Metric.DEFAULT_UNIT);
         obj.put("size", target.getListCommitTime().size());
         obj.put("activity", (new RCF(target)).getLogs());
         obj.put("scale", (new SCF(target)).getValue());
         obj.put("cooperation", (new CCR(target)).getValue());
+        obj.put("topContributor", target.getTopContributors());
     }
 
     private static void predictFuture(JSONObject obj) {
