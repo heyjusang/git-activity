@@ -109,6 +109,27 @@ function drawLineGraph(chartId, options) {
   .style("font-size", options.axis.fontSize)
   .call(yAxis);
 
+  //draw GuideLine
+
+  for (var i = 0; i < options.guideLine.values.length; i++) {
+    value = options.guideLine.values[i];
+    color = options.guideLine.colors[Math.min(i, options.guideLine.colors.length)];
+    var guideLine = d3.svg.line()
+    .x(function(d) {
+      return x(d);
+    })
+    .y(function(d) {
+      return y(value);
+    });
+
+    var path = chart.append("path")
+    .attr("d", guideLine([xMin,xMax]))
+    .style("shape-rendering", "crispEdges")
+    .style("stroke-width", 2)
+    .style("stroke", color);
+  }
+
+
   var initLine = d3.svg.line()
   .interpolate("basis")
   .x(function(d,i) {

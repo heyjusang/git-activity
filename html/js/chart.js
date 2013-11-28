@@ -10,7 +10,8 @@ function drawActivityGraph(chartId, dataSource, lastDate, valueMin, valueMax) {
       min : valueMin
     },
     guideLine: {
-      values: [range/4, 3*range/4]
+      values: [25, 50, 75],
+			colors: ["#7cd2c7", "#f7c676", "#c5819a"]
     },
     lastDate: lastDate
   });
