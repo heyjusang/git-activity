@@ -3,17 +3,17 @@ import java.util.Collections;
 import java.util.Date;
 
 public abstract class Metric {
-    protected static final int WEEK = 7*24*60*60;
-    protected static final int MONTH = 4*WEEK;
-    protected static final int DEFAULT_UNIT = MONTH;
-    protected static final int DEFAULT_INTERVAL = 6*MONTH;
+    public static final int WEEK = 7*24*60*60;
+    public static final int MONTH = 4*WEEK;
+    public static final int DEFAULT_UNIT = MONTH;
+    public static final int DEFAULT_INTERVAL = 6*MONTH;
     protected Target target;
 
     public Metric(Target target) {
         this.target = target;
     }
 
-    private static int today() {
+    public static int today() {
         return (int)((new Date()).getTime() / 1000);
     }
 
@@ -26,6 +26,10 @@ public abstract class Metric {
             return list.get(size / 2);
         else
             return (list.get(size / 2 - 1) + list.get(size / 2)) / 2.0;
+    }
+
+    public double getValue() {
+        return getValue(today());
     }
 
     public ArrayList<Double> getLogs() {
