@@ -1,7 +1,8 @@
-function drawActivityGraph(chartId, dataSource, lastDate, valueMin, valueMax) {
+function drawActivityGraph(chartId, dataSource, predictions, lastDate, valueMin, valueMax) {
   var range = valueMax-valueMin;
 	drawLineGraph(chartId,{
     data : dataSource,
+    predictionData: predictions,
     x : {
       max : dataSource.length
     },
@@ -75,7 +76,7 @@ $(window).load(function() {
   processAll("#rcf", data.activity[data.activity.length -1], 0, 100);
   processAll("#scf", data.scale, 0, 100);
   processAll("#ccr", data.cooperation, 0, 100);
-  drawActivityGraph(".activity-graph", data.activity, data.today, 0, 100);
+  drawActivityGraph(".activity-graph", data.activity, data.future, data.today, 0, 100);
   drawDonuts(".donuts", data.topContributor, data.size);
   setTopContributors(".top-contributors", data.topContributor);
   $(document).tooltip({

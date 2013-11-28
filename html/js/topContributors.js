@@ -116,7 +116,7 @@ function drawDonutGraph(chartId, data, total, color) {
 });
 
 
-var legend = chart.selectAll("legend")
+var legend = chart.selectAll(".legend")
 .data(data)
 .enter().append("g")
 .attr("class", "legend")

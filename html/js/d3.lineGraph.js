@@ -1,6 +1,7 @@
 function drawLineGraph(chartId, options) {
 	var defaults = {
-		data : {},
+		data : [],
+    predictionData : [],
 		margin : {
 			left : 5,
 			right : 5,
@@ -16,11 +17,6 @@ function drawLineGraph(chartId, options) {
       strokeWidth : "7px",
       fill : "none"
     },
-    x : {
-      max : 50,
-      min : 0,
-      tick : 2
-    },
     y : {
       max : 100,
       min : 0,
@@ -35,7 +31,7 @@ function drawLineGraph(chartId, options) {
 
   options = $.extend(true,{},defaults,options);
 
-  var width = options.data.length * 50;
+  var width = (options.data.length + options.predictionData.length) * 50;
   var height = $(chartId).height();
 
   var xStart = 0 + options.margin.left + 20;
@@ -43,8 +39,8 @@ function drawLineGraph(chartId, options) {
   var yStart = height - options.margin.bottom - 30;
   var yEnd = 0 + options.margin.top;
 
-  var xMin = options.x.min;
-  var xMax = options.x.max;
+  var xMin = 0;
+  var xMax = options.data.length + options.predictionData.length - 1;
   var yMin = options.y.min;
   var yMax = options.y.max;
 
@@ -71,8 +67,6 @@ function drawLineGraph(chartId, options) {
   //TODO control tick
   var xAxis = d3.svg.axis().scale(x).ticks(options.data.length)
   .tickFormat(function(d,i) {
-    if (i == options.data.length)
-      return; 
 
     date = new Date(year, month - (options.data.length - i));
     if (markedYear == date.getFullYear()) {
@@ -132,31 +126,47 @@ function drawLineGraph(chartId, options) {
   }
 
 
-  var initLine = d3.svg.line()
-  .interpolate("basis")
-  .x(function(d,i) {
-    return x(i);
-  })
-  .y(function(d) {
-    return y(0);
-  });
+  var activityPath = drawPath(options.data, 0, false);
 
-  var line = d3.svg.line()
-  .interpolate("basis")
-  .x(function(d,i) {
-    return x(i);
-  })
-  .y(function(d) {
-    return y(d);
-  });
+  var predictions = options.predictionData;
+  predictions.unshift(options.data[options.data.length-1]);
+  var predictionPath = drawPath(predictions, options.data.length-1, true);
 
-  var path = chart.append("path")
-  .attr("d", initLine(options.data))
-  .style(options.dataLine)
-  .style("stroke-width", options.dataLine.strokeWidth)
-  .transition()
-  .duration(1000)
-  .ease("linear")
-  .attr("d", line(options.data));
+  function drawPath(data, init, isFuture) {
+    var initLine = d3.svg.line()
+    .interpolate("basis")
+    .x(function(d,i) {
+      return x(i + init);
+    })
+    .y(function(d) {
+      return y(0);
+    });
+
+    var line = d3.svg.line()
+    .interpolate("basis")
+    .x(function(d,i) {
+      return x(i + init);
+    })
+    .y(function(d) {
+      return y(d);
+    });
+
+    var path = chart.append("path")
+    .attr("d", initLine(data))
+    .style(options.dataLine)
+    .style("stroke-width", options.dataLine.strokeWidth)
+    .style("stroke-dasharray", function() {
+      if(isFuture)
+        return ("3","3");
+      else
+        return;
+    })
+    .transition()
+    .duration(1000)
+    .ease("linear")
+    .attr("d", line(data));
+
+    return path;
+  };
 
 }
