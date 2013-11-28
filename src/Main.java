@@ -1,11 +1,9 @@
-
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import org.json.simple.JSONObject;
-
 
 public class Main {
     private static final String JSON_PATH = "html/js/data.js";

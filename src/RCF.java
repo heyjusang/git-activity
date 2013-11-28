@@ -1,6 +1,4 @@
-
 import java.util.ArrayList;
-
 
 public class RCF extends Metric {
     
@@ -21,9 +19,9 @@ public class RCF extends Metric {
         return getMedian(interval);
     }
 
-    public double getValue(int timeEnd, int interval) {
-        double mcia = getMedianCommitInterval(timeEnd - 120*MONTH, timeEnd);
-        double mci6 = getMedianCommitInterval(timeEnd - interval*MONTH, timeEnd);
+    public double getValue(int timeEnd) {
+        double mcia = getMedianCommitInterval(0, timeEnd);
+        double mci6 = getMedianCommitInterval(timeEnd - DEFAULT_INTERVAL, timeEnd);
         double ratio = mcia / (mci6 + 1E-9);
         double rcf = 100. * (1 - 1 / (1 + Math.pow(ratio, 2)));
         return rcf;

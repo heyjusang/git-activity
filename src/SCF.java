@@ -4,22 +4,20 @@ public class SCF extends Metric {
     public SCF(Target target) {
         super(target);
     }
-    
-    private double getMeanCommitFrequency(int timeStart, int timeEnd) {
+
+    private int getCommitCount(int timeStart, int timeEnd) {
         int commitCount = 0;
-        int timeFirst = -1;
         for (Integer time : this.target.getListCommitTime()) {
             if (timeStart <= time && time <= timeEnd) {
-                if (timeFirst < 0) timeFirst = time;
                 commitCount++;
             }
         }
-        return (double)commitCount / (double)(timeEnd - timeFirst);
+        return commitCount;
     }
 
-    public double getValue(int timeEnd, int interval) {
-        double mcf = getMeanCommitFrequency(timeEnd - interval*MONTH, timeEnd);
-        double scf = Math.log(mcf*6*MONTH + 1) / Math.log(2);
-        return scf;
+    public double getValue(int timeEnd) {
+        int commitCount = getCommitCount(timeEnd - DEFAULT_INTERVAL, timeEnd);
+        double scf = Math.log(commitCount + 1) / Math.log(2) * (100. / 12);
+        return Math.max(scf, 100.0);
     }
 }

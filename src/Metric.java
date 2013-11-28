@@ -1,13 +1,10 @@
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-
 public abstract class Metric {
     private final int DEFAULT_SAMPLES = 50;
     private final int DEFAULT_INTERVAL = 6;
-    protected final int MONTH = 4*7*24*60*60;
     protected static final int MONTH = 4*7*24*60*60;
     protected static final int WEEK = 7*24*60*60;
     protected Target target;
@@ -51,5 +48,5 @@ public abstract class Metric {
         return result;
     }
 
-    public abstract double getValue(int timeEnd, int interval);
+    public abstract double getValue(int timeEnd);
 }
