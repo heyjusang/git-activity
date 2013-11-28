@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,15 +15,14 @@ import org.eclipse.jgit.diff.RawTextComparator;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevSort;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.util.io.DisabledOutputStream;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 
 public class Target {
     private static final String PROJECTS_DIRECTORY = "projects/";
@@ -153,12 +151,4 @@ public class Target {
     	return sorted;
     }
 
-    public String getDate() {
-      Calendar c = Calendar.getInstance();
-      int year = c.get(Calendar.YEAR);
-      int month = c.get(Calendar.MONTH) + 1;
-      return year + "-" + month;
-    }
-
-    
 }

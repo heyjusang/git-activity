@@ -1,11 +1,9 @@
-
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import org.json.simple.JSONObject;
-
 
 public class Main {
     private static final String JSON_PATH = "html/js/data.js";
@@ -17,7 +15,7 @@ public class Main {
             return br.readLine();
         } catch (IOException e) {
             e.printStackTrace();
-            return "rust";
+            return "node";
         }
     }
 
@@ -32,22 +30,29 @@ public class Main {
         }
     }
 
-    private static JSONObject computeMetrics(Target target) {
-        int nMaxSample = 50;
-        JSONObject obj = new JSONObject();
-        obj.put("name", target.getProjectName());
-        obj.put("scf", (new SCF(target)).getLogs(nMaxSample, 6));
-        obj.put("rcf", (new RCF(target)).getLogs(nMaxSample, 6));
-        obj.put("ccr", (new CCR(target)).getLogs(nMaxSample, 6));
+    private static void computeMetrics(JSONObject obj, Target target) {
+        obj.put("today", Metric.today());
+        obj.put("unit", Metric.DEFAULT_UNIT);
+        obj.put("size", target.getListCommitTime().size());
+        obj.put("activity", (new RCF(target)).getLogs());
+        obj.put("scale", (new SCF(target)).getValue());
+        obj.put("cooperation", (new CCR(target)).getValue());
         obj.put("topContributor", target.getTopContributors());
-        obj.put("lastDate", target.getDate());
-        return obj;
+    }
+
+    private static void predictFuture(JSONObject obj) {
+        ArrayList<Double> future = new ArrayList<Double>();
+        for (int i = 0; i < 6; i++)
+            future.add(50.);
+        obj.put("future", future);
     }
 
     public static void main(String[] args) {
         String projectName = getProjectName();
         Target target = new Target(projectName);
-        JSONObject obj = computeMetrics(target);
+        JSONObject obj = new JSONObject();
+        computeMetrics(obj, target);
+        predictFuture(obj);
         writeFile(obj);
     }
 }

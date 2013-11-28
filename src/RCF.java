@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class RCF extends Metric {
     
@@ -5,22 +6,23 @@ public class RCF extends Metric {
         super(target);
     }
 
-    private double getMeanCommitFrequency(int timeStart, int timeEnd) {
-        int commitCount = 0;
-        int timeFirst = -1;
+    private double getMedianCommitInterval(int timeStart, int timeEnd) {
+        int timeLast = -1;
+        ArrayList<Double> interval = new ArrayList<Double>();
         for (Integer time : this.target.getListCommitTime()) {
             if (timeStart <= time && time <= timeEnd) {
-                if (timeFirst < 0) timeFirst = time;
-                commitCount++;
+                if (timeLast >= 0)
+                    interval.add((double)Math.abs(timeLast - time));
+                timeLast = time;
             }
         }
-        return (double)commitCount / (double)(timeEnd - timeFirst);
+        return getMedian(interval);
     }
 
-    public double getValue(int timeEnd, int interval) {
-        double mcfa = getMeanCommitFrequency(timeEnd - 120*MONTH, timeEnd);
-        double mcf6 = getMeanCommitFrequency(timeEnd - interval*MONTH, timeEnd);
-        double ratio = mcf6 / (mcfa + 1E-9);
+    public double getValue(int timeEnd) {
+        double mcia = getMedianCommitInterval(0, timeEnd);
+        double mci6 = getMedianCommitInterval(timeEnd - DEFAULT_INTERVAL, timeEnd);
+        double ratio = mcia / (mci6 + 1E-9);
         double rcf = 100. * (1 - 1 / (1 + Math.pow(ratio, 2)));
         return rcf;
     }

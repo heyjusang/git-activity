@@ -1,4 +1,3 @@
-bin/
-docs/
-projects/
+*.class
+projects/*/
 html/js/data.js
