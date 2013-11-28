@@ -1,5 +1,5 @@
-function drawChart(chartId, dataSource, valueMin, valueMax) {
-  range = valueMax-valueMin;
+function drawActivityGraph(chartId, dataSource, lastDate, valueMin, valueMax) {
+  var range = valueMax-valueMin;
 	drawLineGraph(chartId,{
     data : dataSource,
     x : {
@@ -10,48 +10,76 @@ function drawChart(chartId, dataSource, valueMin, valueMax) {
       min : valueMin
     },
     guideLine: {
-      values: [range/4, 3*range/4]
+      values: [25, 50, 75],
+			colors: ["#7cd2c7", "#f7c676", "#c5819a"]
+    },
+    lastDate: lastDate
+  });
+
+  $(chartId).scrollLeft(2000);
+
+  var element = $(chartId).jScrollPane();
+  var api = element.data('jsp');
+  element.bind(
+    'mousewheel',
+    function (event, delta, deltaX, deltaY)
+    {
+      api.scrollByX(delta * 30);
+      return false;
     }
+  );
+}
+
+function drawAnimatingNumber(prefix, data, valueMin, valueMax) {
+  var range = valueMax - valueMin;
+  var value = Number(data[data.length-1].toFixed(2));
+   
+	$(prefix + " .label-value").animateNumbers(value, valueMin, valueMax);
+  $(prefix + " .max-value").text(" / " + valueMax);
+}
+
+function drawProgressBar(graphId, value, valueMin, valueMax) {
+  var range = valueMax-valueMin;
+  drawProgressBarGraph(graphId, {
+    value: value,
+    valueMin: valueMin,
+    valueMax: valueMax,
+    guides: [range/4, 3*range/4],
   });
 }
 
-function drawGauge(gaugeId, value, valueMin, valueMax) {
-  range = valueMax-valueMin;
-  drawGaugeGraph(gaugeId, {
-    data: value,
-    section: {
-      startValue: valueMin,
-      endValue: valueMax,
-      ticks: [range/4, range/2, 3*range/4]
-    }
+function setTopContributors(parentId, data) {
+  drawTopContributors(parentId, {
+    data: data
+  });
+}
+
+function drawDonuts(prefix, data) {
+  drawTotalDonut(prefix + " .total",  {
+    data: data,
+    total: 20000
+  });
+  drawTopDonut(prefix + " .top",  {
+    data: data
   });
 }
 
 function processAll(prefix, data, valueMin, valueMax) {
-  drawChart(prefix + " .col3", data, valueMin, valueMax);
-  drawGauge(prefix + " .col2 .circularGauge", data[data.length-1], valueMin, valueMax);
-  $(prefix + " .label-value").animateNumbers(Number(data[data.length-1].toFixed(2)));
+  drawAnimatingNumber(prefix, data, valueMin, valueMax);
+  drawProgressBar(prefix + " .row3", data[data.length-1], valueMin, valueMax);
 }
 
-function setDataInterval(interval) {
-    if (interval == 3) {
-      processAll("#scf", data.scf3, 0, 16);
-      processAll("#rcf", data.rcf3, 0, 100);
-      processAll("#ccr", data.ccr3, 0, 100);
-    }
-    else if (interval == 6) {
-      processAll("#scf", data.scf, 0, 16);
-      processAll("#rcf", data.rcf, 0, 100);
-      processAll("#ccr", data.ccr, 0, 100);
-    }
-    else if (interval == 12){
-      processAll("#scf", data.scf12, 0, 16);
-      processAll("#rcf", data.rcf12, 0, 100);
-      processAll("#ccr", data.ccr12, 0, 100);
-    }
-}
 
 $(window).load(function() {
   $('.header-text').text("Project Activity - " + data.name);
-  setDataInterval(6);
+  processAll("#rcf", data.rcf, 0, 100);
+  processAll("#scf", data.scf, 0, 12);
+  processAll("#ccr", data.ccr, 0, 100);
+  drawActivityGraph(".activity-graph", data.rcf, data.lastDate, 0, 100);
+  drawDonuts(".donuts", data.topContributor);
+  setTopContributors(".top-contributors", data.topContributor);
+  $(document).tooltip({
+    items: "img.helper",
+    content: "ddddd"
+  });
 });

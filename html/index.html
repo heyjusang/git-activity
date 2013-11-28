@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Project Activity</title>
+    <link href="styles_bright.css" rel="stylesheet">
+    <link href="jquery.jscrollpane.css" rel="stylesheet">
+    <link href="jquery-ui-1.10.3.custom.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="layout">
+      <div class="header-text"></div>
+      <div class="content">
+        <div class="metrics-content">
+          <div class="metric" id="rcf">
+            <div class="row1">
+              <h2 class="title">활동성</h2>
+              <img class="helper" src="images/ic_helper.png"/>
+            </div>
+            <div class="row2">
+              <label class="label-value">0</label>
+              <span class="max-value">/ 100</span>
+            </div>
+            <div class="row3">
+            </div>
+          </div>
+          <div class="metric" id="scf">
+            <div class="row1">
+              <h2 class="title">성장규모</h2>
+              <img class="helper" src="images/ic_helper.png"/>
+            </div>
+            <div class="row2">
+              <label class="label-value">0</label>
+              <span class="max-value">/ 100</span>
+            </div>
+            <div class="row3">
+            </div>
+          </div>
+          <div class="metric" id="ccr">
+            <div class="row1">
+              <h2 class="title">협업정도</h2>
+              <img class="helper" src="images/ic_helper.png"/>
+            </div>
+            <div class="row2">
+              <label class="label-value">0</label>
+              <span class="max-value">/ 100</span>
+            </div>
+            <div class="row3">
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="prediction-content">
+          <div class="row1">
+            <h2 class="title">활동성 변화</h2>
+            <img class="helper" src="images/ic_helper.png"/>
+          </div>
+          <div class="yAxis-area">
+          </div>
+          <div class="activity-graph">
+          </div>
+        </div>
+        <hr />
+        <div class="contributors-content">
+          <div class="row1">
+            <h2 class="title">커밋 분포</h2>
+            <img class="helper" src="images/ic_helper.png"/>
+          </div>
+          <div class="donuts">
+            <div class="total">
+            </div>
+            <div class="top">
+            </div>
+          </div>
+          <div class="top-contributors">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/jquery-1.9.1.min.js"></script>
+  <script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+  <script src="js/jquery.animateNumbers.js"></script>
+  <script src="js/jquery.jscrollpane.min.js"></script>
+  <script src="js/jquery.mousewheel.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/d3.min.js"></script>
+  <script src="js/d3.lineGraph.js"></script>
+  <script src="js/d3.progressBar.js"></script>
+  <script src="js/topContributors.js"></script>
+  <script src="js/chart.js"></script>
+</html>

@@ -15,24 +15,37 @@
 ***********/
 
 (function($) {
-    $.fn.animateNumbers = function(stop, commas, duration, ease) {
+    $.fn.animateNumbers = function(stop, valueMin, valueMax, commas, duration, ease) {
         return this.each(function() {
             var $this = $(this);
             var start = parseInt($this.text().replace(/,/g, ""));
+            var range = valueMax - valueMin;
 			commas = (commas === undefined) ? true : commas;
             $({value: start}).animate({value: stop}, {
             	duration: duration == undefined ? 1000 : duration,
             	easing: ease == undefined ? "swing" : ease,
             	step: function() {
             		$this.text(Number(this.value.toFixed(2)));
-					if (commas) { $this.text($this.text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")); }
-            	},
-            	complete: function() {
-            	   if (parseInt($this.text()) !== stop) {
-            	       $this.text(stop);
-					   if (commas) { $this.text($this.text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")); }
-            	   }
-            	}
+                if (commas) { 
+                  $this.text($this.text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")); 
+                  if (this.value > 3*range/4) {
+                    $this.css("color", "#c5819a");
+                  }
+                  else if (this.value <= range/4) {
+                    $this.css("color", "#76c8bd");
+                  }
+                  else {
+                    $this.css("color", "#f7c676");
+                  };
+                }
+
+              },
+              complete: function() {
+                if (parseInt($this.text()) !== stop) {
+                  $this.text(stop);
+                  if (commas) { $this.text($this.text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")); }
+                }
+              }
             });
         });
     };
