@@ -73,15 +73,18 @@ function drawProgressBarGraph(chartId, options) {
     color: guideColors[i]
   });
 
+  var lastTick = ticks[ticks.length - 1];
+
   progress
   .attr("width", x(options.valueMin))
   .attr("fill", ticks[0].color)
   .transition()
-  .duration(1000/ticks.length)
+  .duration((ticks[0].tick-options.valueMin)*1000/lastTick.tick)
   .ease("linear")
   .attr("width", x(ticks[0].tick))
   .attr("fill", ticks[0].color) 
   .each("end", function() {generateAnimation(1)});
+
 
 
 //TODO duration
@@ -95,6 +98,7 @@ function drawProgressBarGraph(chartId, options) {
       .attr("width", x(ticks[i-1].tick))
       .attr("fill", ticks[i-1].color) 
       .duration(1000/ticks.length)
+      .duration((ticks[i].tick-ticks[i-1].tick)*1000/lastTick.tick)
       .ease("linear")
       .attr("width", x(ticks[i].tick))
       .attr("fill", ticks[i].color) 
