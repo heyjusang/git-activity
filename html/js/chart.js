@@ -16,7 +16,7 @@ function drawActivityGraph(chartId, dataSource, lastDate, valueMin, valueMax) {
     lastDate: lastDate
   });
 
-  $(chartId).scrollLeft(2000);
+  $(chartId).scrollLeft($(chartId + ' .lineGraph').width());
 
   var element = $(chartId).jScrollPane();
   var api = element.data('jsp');
@@ -32,7 +32,7 @@ function drawActivityGraph(chartId, dataSource, lastDate, valueMin, valueMax) {
 
 function drawAnimatingNumber(prefix, data, valueMin, valueMax) {
   var range = valueMax - valueMin;
-  var value = Number(data[data.length-1].toFixed(2));
+  var value = Number(data.toFixed(2));
    
 	$(prefix + " .label-value").animateNumbers(value, valueMin, valueMax);
   $(prefix + " .max-value").text(" / " + valueMax);
@@ -54,10 +54,10 @@ function setTopContributors(parentId, data) {
   });
 }
 
-function drawDonuts(prefix, data) {
+function drawDonuts(prefix, data, total) {
   drawTotalDonut(prefix + " .total",  {
     data: data,
-    total: 20000
+    total: total
   });
   drawTopDonut(prefix + " .top",  {
     data: data
@@ -66,17 +66,17 @@ function drawDonuts(prefix, data) {
 
 function processAll(prefix, data, valueMin, valueMax) {
   drawAnimatingNumber(prefix, data, valueMin, valueMax);
-  drawProgressBar(prefix + " .row3", data[data.length-1], valueMin, valueMax);
+  drawProgressBar(prefix + " .row3", data, valueMin, valueMax);
 }
 
 
 $(window).load(function() {
   $('.header-text').text("Project Activity - " + data.name);
-  processAll("#rcf", data.rcf, 0, 100);
-  processAll("#scf", data.scf, 0, 12);
-  processAll("#ccr", data.ccr, 0, 100);
-  drawActivityGraph(".activity-graph", data.rcf, data.lastDate, 0, 100);
-  drawDonuts(".donuts", data.topContributor);
+  processAll("#rcf", data.activity[data.activity.length -1], 0, 100);
+  processAll("#scf", data.scale, 0, 100);
+  processAll("#ccr", data.cooperation, 0, 100);
+  drawActivityGraph(".activity-graph", data.activity, data.today, 0, 100);
+  drawDonuts(".donuts", data.topContributor, data.size);
   setTopContributors(".top-contributors", data.topContributor);
   $(document).tooltip({
     items: "img.helper",

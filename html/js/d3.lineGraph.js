@@ -63,8 +63,10 @@ function drawLineGraph(chartId, options) {
   var x = d3.scale.linear().domain([xMin, xMax]).range([xStart, xEnd]);
   var y = d3.scale.linear().domain([yMin, yMax]).range([yStart, yEnd]);
 
-  var year = options.lastDate.split("-")[0];
-  var month = options.lastDate.split("-")[1];
+  var today = new Date(options.lastDate);
+
+  var year = today.getFullYear();
+  var month = today.getMonth() + 1;
   var markedYear;
   //TODO control tick
   var xAxis = d3.svg.axis().scale(x).ticks(options.data.length)
