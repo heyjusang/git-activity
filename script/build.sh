@@ -1,5 +1,9 @@
 #!/bin/bash
 
+cd ..
+
+mkdir -p bin
+
 LIBS=bin
 for f in `ls libs`; do LIBS=$LIBS:libs/$f; done
 
@@ -14,3 +18,5 @@ ls --color projects
 
 echo "Executing $MAIN.class"
 java -cp $LIBS $MAIN
+
+cd script

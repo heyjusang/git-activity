@@ -14,7 +14,7 @@ public class CCR extends Metric {
         for (Integer time : this.target.getListCrossCommitTime())
             if (timeStart <= time && time <= timeEnd)
                 crossCommitCount++;
-        return (double)crossCommitCount / (totalCommitCount + 1.);
+        return (double)crossCommitCount / (totalCommitCount + 1E-6);
     }
 
     public double getValue(int timeEnd, int interval) {
