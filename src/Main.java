@@ -41,6 +41,7 @@ public class Main {
         obj.put("activity", (new RCF(target)).getLogs());
         obj.put("scale", (new SCF(target)).getValue());
         obj.put("cooperation", (new CCR(target)).getValue());
+        obj.put("contributorCount", target.getTotalContributorCount());
         ArrayList<Entry<String,Integer>> ranking = target.getTopContributors();
         JSONArray topContributor = new JSONArray();
         int n = Math.min(ranking.size(), 10);

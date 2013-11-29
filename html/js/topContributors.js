@@ -27,7 +27,8 @@ function drawTopContributors(parentId, options) {
 function drawTotalDonut(chartId, options) {
   var defaults = {
     data : {},
-    total: 0
+    totalContributor: 0,
+    totalCommit: 0
   };
   options = $.extend(true,{},defaults,options);
 
@@ -38,12 +39,12 @@ function drawTotalDonut(chartId, options) {
   }
 
   var data = [];
-  data.push({name:"상위 10명", count:counts});
-  data.push({name:"나머지", count:options.total});
+  data.push({name:"상위 " + options.data.length + "명", count:counts});
+  data.push({name:"나머지 " + (options.totalContributor - options.data.length) + "명", count:options.totalCommit - counts});
 
   var color = ["#f7c676","#f2f2f2"];
 
-  drawDonutGraph(chartId, data, (options.total + counts) ,color);
+  drawDonutGraph(chartId, data, options.totalCommit ,color);
 
 }
 

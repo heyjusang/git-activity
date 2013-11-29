@@ -136,4 +136,8 @@ public class Target {
         });
         return ranking;
     }
+
+    public int getTotalContributorCount() {
+      return this.map.size();
+    }
 }

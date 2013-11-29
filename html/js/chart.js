@@ -55,10 +55,11 @@ function setTopContributors(parentId, data) {
   });
 }
 
-function drawDonuts(prefix, data, total) {
+function drawDonuts(prefix, data, contributorCount, commitCount) {
   drawTotalDonut(prefix + " .total",  {
     data: data,
-    total: total
+    totalContributor: contributorCount,
+    totalCommit: commitCount
   });
   drawTopDonut(prefix + " .top",  {
     data: data
@@ -86,13 +87,13 @@ function showTooltip(tag) {
   var goodScope = "75 ~ 100";
   
   if (tag == Tag.rcf) {
-    description = "프로젝트의 전체 개발 기간에 대한 최근 6개월간 커밋 빈도의 비율을 점수화한 지표.";
+    description = "최근 6개월간 커밋 빈도와 전체 개발 기간 커밋 빈도의 비를 점수화한 지표.";
   }
   else if (tag == Tag.scf) {
     description = "최근 6개월간 커밋 횟수를 점수화한 지표.";
   }
   else if (tag == Tag.ccr) {
-    description = "최근 6개월간 전체 커밋에 대한 다른 이의 코드를 고친 횟수의 비율을 점수화한 지표.";
+    description = "최근 6개월간 다른 이의 코드를 고친 횟수와 최근 6개월간 전체 커밋 횟수의 비를 점수화한 지표.";
   }
   else if (tag == Tag.activityGraph) {
     description = "활동성 변화 양상과 앞으로의 변화 방향을 예측하여 나타낸 그래프입니다.";
@@ -103,19 +104,17 @@ function showTooltip(tag) {
 
   var format = "<div class='tooltip-description'>" + description + "</div>";
 
-  if (tag == Tag.rcf || tag == Tag.scf || tag == Tag.ccr) {
-
-    var grades = " <div class='tooltip-grades'"
-    + "<p>" + goodScope + " : " + "<span class='good'>좋아요</span>" + "</p>"
-    + "<p>" + normalScope + " : " + "<span class='normal'>보통이요</span>" + "</p>"
-    + "<p>" + badScope + " : " + "<span class='bad'>나빠요</span>" + "</p>"
-    + "</div>";
-
-    format += grades;
-  }
+  if (tag == Tag.scf || tag == Tag.rcf || tag == Tag.ccr)  {
+		var grades = " <div class='tooltip-grades'"
+		+ "<p>" + goodScope + " : " + "<span class='good'>높음</span>" + "</p>"
+		+ "<p>" + normalScope + " : " + "<span class='normal'>보통</span>" + "</p>"
+		+ "<p>" + badScope + " : " + "<span class='bad'>낮음</span>" + "</p>"
+		+ "</div>";
+		format += grades;
+	}
 
 
-  return format;
+	return format;
 }
 
 
@@ -124,17 +123,17 @@ function showTooltip(tag) {
 
 
 $(window).load(function() {
-  $('.header-text').text("Project Activity - " + data.name);
-  processAll("#rcf", data.activity[data.activity.length -1], 0, 100);
-  processAll("#scf", data.scale, 0, 100);
-  processAll("#ccr", data.cooperation, 0, 100);
-  drawActivityGraph(".activity-graph", data.activity, data.future, data.today, 0, 100);
-  drawDonuts(".donuts", data.topContributor, data.size);
-  setTopContributors(".top-contributors", data.topContributor);
-  $(document).tooltip({
-    items: "img.helper",
-    content: function() {
-      return showTooltip($(this).attr("alt"));
-    }
-  });
+	$('.header-text').text("Project Activity - " + data.name);
+	processAll("#rcf", data.activity[data.activity.length -1], 0, 100);
+	processAll("#scf", data.scale, 0, 100);
+	processAll("#ccr", data.cooperation, 0, 100);
+	drawActivityGraph(".activity-graph", data.activity, data.future, data.today, 0, 100);
+	drawDonuts(".donuts", data.topContributor, data.contributorCount, data.size);
+	setTopContributors(".top-contributors", data.topContributor);
+	$(document).tooltip({
+		items: "img.helper",
+		content: function() {
+			return showTooltip($(this).attr("alt"));
+		}
+	});
 });
