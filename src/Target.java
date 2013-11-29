@@ -66,7 +66,7 @@ public class Target {
             for (RevCommit commit : commits) {
                 int time = commit.getCommitTime();
                 this.listCommitTime.add(time);
-                String name = commit.getCommitterIdent().getName();
+                String name = commit.getAuthorIdent().getName();
                 if(!this.map.containsKey(name))
                     this.map.put(name, new ArrayList<Integer>());
                 (this.map.get(name)).add(time);
