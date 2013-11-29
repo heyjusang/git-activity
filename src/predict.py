@@ -21,8 +21,7 @@ gp.fit(x, y)
 
 # Generate the input space and make the prediction
 xp = np.atleast_2d(xrange(len(y), len(y)+6)).T
-yp = gp.predict(xp)
-np.clip(yp, 0.0, 100.0)
+yp = gp.predict(xp).clip(0.0, 100.0)
 
 # Save the regression result
 data['future'] = list(yp)
