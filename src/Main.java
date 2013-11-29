@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.Process;
+import java.lang.Runtime;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -25,7 +27,7 @@ public class Main {
     private static void writeFile(JSONObject obj) {
         try {
             FileWriter file = new FileWriter(JSON_PATH);
-            file.write("var data = " + obj.toJSONString() + ";");
+            file.write(obj.toJSONString());
             file.flush();
             file.close();
         } catch (IOException e) {
@@ -54,19 +56,16 @@ public class Main {
         obj.put("topContributor", topContributor);
     }
 
-    private static void predictFuture(JSONObject obj) {
-        ArrayList<Double> future = new ArrayList<Double>();
-        for (int i = 0; i < 6; i++)
-            future.add(50.);
-        obj.put("future", future);
-    }
-
     public static void main(String[] args) {
         String projectName = getProjectName();
         Target target = new Target(projectName);
         JSONObject obj = new JSONObject();
         computeMetrics(obj, target);
-        predictFuture(obj);
         writeFile(obj);
+        try {
+            Process python = Runtime.getRuntime().exec("python src/predict.py");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
