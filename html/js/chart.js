@@ -86,19 +86,19 @@ function showTooltip(tag) {
   var goodScope = "75 ~ 100";
   
   if (tag == Tag.rcf) {
-    description = "활동성을 나타냅니다. 활동성은 이렇게 이렇게 저렇게 저렇게 구합니다.";
+    description = "프로젝트의 전체 개발 기간에 대한 최근 6개월간 커밋 빈도의 비율을 점수화한 지표.";
   }
   else if (tag == Tag.scf) {
-    description = "성장규모를 나타냅니다. 성장규모는 이렇게 이렇게 저렇게 저렇게 구합니다.";
+    description = "최근 6개월간 커밋 횟수를 점수화한 지표.";
   }
   else if (tag == Tag.ccr) {
-    description = "협업정도를 나타냅니다. 협업정도는 이렇게 이렇게 저렇게 저렇게 구합니다.";
+    description = "최근 6개월간 전체 커밋에 대한 다른 이의 코드를 고친 횟수의 비율을 점수화한 지표.";
   }
   else if (tag == Tag.activityGraph) {
-    description = "활동성의 변화 그래프입니다. 활동성은 이렇게 이렇게 저렇게 저렇게 구합니다.";
+    description = "활동성 변화 양상과 앞으로의 변화 방향을 예측하여 나타낸 그래프입니다.";
   }
   else if (tag == Tag.commitInformation) {
-    description = "커밋 분포 정보를 나타냅니다. 첫번째는 커밋을 많이 한 상위 10명의 커밋 비율이고 두번째 그래프는 그냥 딱보면 아는 그거입니다";
+    description = "커밋 분포 정보를 나타냅니다. 첫번째 그래프는 커밋을 많이 한 상위 10명의 커밋 비율을 나타내고, 두번째 그래프는 상위 10명간의 커밋 비율을 나타냅니다. ";
   }
 
   var format = "<div class='tooltip-description'>" + description + "</div>";
