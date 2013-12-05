@@ -222,4 +222,32 @@ hr
   font-weight: 600;
 }
 
+.tooltip-description
+{
+  width: 300px;
+  word-break: break-word;
+  font-size : 13px;
+}
+
+.tooltip-grades
+{
+  margin-top : 10px;
+  width: 200px;
+  font-size : 12px;
+}
+
+.tooltip-grades .good
+{
+  color: #c5819a;
+}
+.tooltip-grades .normal
+{
+  color: #f7c676;
+}
+.tooltip-grades .bad
+{
+  color: #7cd2c7;
+}
+
+
 
