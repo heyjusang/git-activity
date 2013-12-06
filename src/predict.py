@@ -10,8 +10,7 @@ x = np.atleast_2d(xrange(len(y))).T
 
 # Instanciate a Gaussian Process model
 # Fit to data using Maximum Likelihood Estimation of the parameters
-gp = GaussianProcess(theta0=1e-2, thetaL=1e-4, thetaU=1e-1, normalize=True,
-                     nugget=1.0, random_start=10, random_state=486)
+gp = GaussianProcess(theta0=1e-1, nugget=1e-6)
 gp.fit(x, y)
 
 # Generate the input space and make the prediction
