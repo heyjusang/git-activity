@@ -1,3 +1,4 @@
 *.class
+backtest/
 projects/*/
 html/js/data.js

@@ -36,7 +36,7 @@ public abstract class Metric {
 		ArrayList<Double> logs = new ArrayList<Double>();
 		int timeEnd = today();
 		for (;;) {
-			if (timeEnd < this.target.getListCommitTime().get(0)) break;
+			if (timeEnd + DEFAULT_INTERVAL < this.target.getListCommitTime().get(0)) break;
 			logs.add(getValue(timeEnd));
 			timeEnd -= DEFAULT_UNIT;
 		}
