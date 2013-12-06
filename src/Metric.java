@@ -17,6 +17,13 @@ public abstract class Metric {
 		return (int)((new Date()).getTime() / 1000);
 	}
 
+	protected double getMean(ArrayList<Double> list) {
+		double sum = 0.0;
+		for (Double e : list)
+			sum += e;
+		return sum / (list.size() + 1E-9);
+	}
+
 	protected double getMedian(ArrayList<Double> list) {
 		Collections.sort(list);
 		int size = list.size();
@@ -36,7 +43,7 @@ public abstract class Metric {
 		ArrayList<Double> logs = new ArrayList<Double>();
 		int timeEnd = today();
 		for (;;) {
-			if (timeEnd + DEFAULT_INTERVAL < this.target.getListCommitTime().get(0)) break;
+			if (timeEnd < this.target.getListCommitTime().get(0)) break;
 			logs.add(getValue(timeEnd));
 			timeEnd -= DEFAULT_UNIT;
 		}
