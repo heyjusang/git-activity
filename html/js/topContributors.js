@@ -12,7 +12,7 @@ function drawTopContributors(parentId, options) {
     $(parentId).append('<div class="contributor" id="' + id + '"></div>');
     $("#"+id).append('<div class="row1"></div>');
     $("#"+id).append('<div class="row2"></div>');
-    $("#"+id + " .row1").append('<img class="contributor-image" src="images/contributor_default.png"></img>');
+    $("#"+id + " .row1").append('<img class="contributor-image" src="css/images/contributor_default.png"></img>');
     $("#"+id + " .row1").append('<div class="contributor-information"></div>');
     $("#"+id + " .contributor-information").append('<div class="contributor-name"></div>');
     $("#"+id + " .contributor-information").append('<div class="contributor-commit-title"></div>');
