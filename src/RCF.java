@@ -20,7 +20,7 @@ public class RCF extends Metric {
 	}
 
 	public double getValue(int timeEnd) {
-		double mcia = getMeanCommitinterval(0, timeEnd);
+		double mcia = getMeanCommitinterval(timeEnd - 24 * DEFAULT_INTERVAL, timeEnd);
 		double mci6 = getMeanCommitinterval(timeEnd - DEFAULT_INTERVAL, timeEnd);
 		double ratio = mcia / (mci6 + 1E-9);
 		double rcf = 100. * (1 - 1 / (1 + Math.pow(ratio, 2)));
