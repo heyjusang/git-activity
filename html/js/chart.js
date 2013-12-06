@@ -11,7 +11,7 @@ function drawActivityGraph(chartId, dataSource, predictions, lastDate, valueMin,
       min : valueMin
     },
     guideLine: {
-      values: [25, 50, 75],
+      values: [[0,25], [25,75], [75,100]],
 			colors: ["#7cd2c7", "#f7c676", "#c5819a"]
     },
     lastDate: lastDate

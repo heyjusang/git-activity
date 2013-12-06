@@ -23,7 +23,7 @@ function drawLineGraph(chartId, options) {
       tick : 25
     },
     guideLine: {
-      values: [25, 75],
+      values: [[0,25], [75,100]],
 			colors: ["#f7c676", "#c5819a"]
     },
     lastDate: "2013-11"
@@ -108,22 +108,34 @@ function drawLineGraph(chartId, options) {
   //draw GuideLine
 
   for (var i = 0; i < options.guideLine.values.length; i++) {
-    value = options.guideLine.values[i];
+    scope = options.guideLine.values[i];
     color = options.guideLine.colors[Math.min(i, options.guideLine.colors.length)];
-    var guideLine = d3.svg.line()
-    .x(function(d) {
+    var area = d3.svg.area()
+    .x(function(d) { 
       return x(d);
     })
-    .y(function(d) {
-      return y(value);
+    .y0(function(d) {
+      return y(scope[0]);
+    })
+    .y1(function(d) {
+      return y(scope[1]);
     });
 
     var path = chart.append("path")
-    .attr("d", guideLine([xMin,xMax]))
-    .style("shape-rendering", "crispEdges")
-    .style("stroke-width", 2)
-    .style("stroke", color);
+    .attr("d", area([xMin, xMax]))
+    .style("fill", color)
+    .style("opacity", 0.4);
   }
+
+
+  var halfLine = chart.append("line")
+  .attr("x1", x(xMin))
+  .attr("x2", x(xMax))
+  .attr("y1", y((yMin+yMax)/2))
+  .attr("y2", y((yMin+yMax)/2))
+  .style("stroke", "#d2d2d2")
+  .style("stroke-width", 2)
+  .style("stroke-dasharray", ("1","1"));
 
 
   var activityPath = drawPath(options.data, 0, false);
