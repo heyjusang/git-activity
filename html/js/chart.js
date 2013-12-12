@@ -1,4 +1,37 @@
-function drawActivityGraph(chartId, dataSource, predictions, lastDate, valueMin, valueMax) {
+function showCurrentMetrics() {
+
+  var rcf = data.activity[data.activity.length-1];
+  var scf = data.scale;
+  var ccr = data.cooperation;
+
+  showAnimatingNumber("#rcf", rcf, 0,100);
+  showAnimatingNumber("#scf", scf, 0,100);
+  showAnimatingNumber("#ccr", ccr, 0,100);
+
+  showMetricProgress("#rcf .row3", rcf, 0, 100);
+  showMetricProgress("#scf .row3", scf, 0, 100);
+  showMetricProgress("#ccr .row3", ccr, 0, 100);
+}
+
+function showAnimatingNumber(prefix, data, valueMin, valueMax) {
+  var range = valueMax - valueMin;
+  var value = Number(data.toFixed(2));
+   
+	$(prefix + " .label-value").animateNumbers(value, valueMin, valueMax);
+  $(prefix + " .max-value").text(" / " + valueMax);
+}
+
+function showMetricProgress(graphId, value, valueMin, valueMax) {
+  var range = valueMax-valueMin;
+  drawProgressBarGraph(graphId, {
+    value: value,
+    valueMin: valueMin,
+    valueMax: valueMax,
+    guides: [range/4, 3*range/4],
+  });
+}
+
+function showActivityGraph(chartId, dataSource, predictions, lastDate, valueMin, valueMax) {
   var range = valueMax-valueMin;
 	drawLineGraph(chartId,{
     data : dataSource,
@@ -31,31 +64,12 @@ function drawActivityGraph(chartId, dataSource, predictions, lastDate, valueMin,
   );
 }
 
-function drawAnimatingNumber(prefix, data, valueMin, valueMax) {
-  var range = valueMax - valueMin;
-  var value = Number(data.toFixed(2));
-   
-	$(prefix + " .label-value").animateNumbers(value, valueMin, valueMax);
-  $(prefix + " .max-value").text(" / " + valueMax);
+function showCommitDistribution() {
+	drawCommitDonuts(".donuts", data.topContributor, data.contributorCount, data.size);
+	showTopContributors(".top-contributors", data.topContributor);
 }
 
-function drawProgressBar(graphId, value, valueMin, valueMax) {
-  var range = valueMax-valueMin;
-  drawProgressBarGraph(graphId, {
-    value: value,
-    valueMin: valueMin,
-    valueMax: valueMax,
-    guides: [range/4, 3*range/4],
-  });
-}
-
-function setTopContributors(parentId, data) {
-  drawTopContributors(parentId, {
-    data: data
-  });
-}
-
-function drawDonuts(prefix, data, contributorCount, commitCount) {
+function drawCommitDonuts(prefix, data, contributorCount, commitCount) {
   drawTotalDonut(prefix + " .total",  {
     data: data,
     totalContributor: contributorCount,
@@ -66,9 +80,19 @@ function drawDonuts(prefix, data, contributorCount, commitCount) {
   });
 }
 
-function processAll(prefix, data, valueMin, valueMax) {
-  drawAnimatingNumber(prefix, data, valueMin, valueMax);
-  drawProgressBar(prefix + " .row3", data, valueMin, valueMax);
+function showTopContributors(parentId, data) {
+  drawTopContributors(parentId, {
+    data: data
+  });
+}
+
+function initializeTooltip() {
+  $(document).tooltip({
+    items: "img.helper",
+    content: function() {
+      return showTooltip($(this).attr("alt"));
+    }
+  });
 }
 
 function showTooltip(tag) {
@@ -85,7 +109,7 @@ function showTooltip(tag) {
   var badScope = "0 ~ 24";
   var normalScope = "25 ~ 74";
   var goodScope = "75 ~ 100";
-  
+
   if (tag == Tag.rcf) {
     description = "최근 6개월간 커밋 빈도와 전체 개발 기간 커밋 빈도의 비를 점수화한 지표.";
   }
@@ -105,35 +129,21 @@ function showTooltip(tag) {
   var format = "<div class='tooltip-description'>" + description + "</div>";
 
   if (tag == Tag.scf || tag == Tag.rcf || tag == Tag.ccr)  {
-		var grades = " <div class='tooltip-grades'"
-		+ "<p>" + goodScope + " : " + "<span class='good'>높음</span>" + "</p>"
-		+ "<p>" + normalScope + " : " + "<span class='normal'>보통</span>" + "</p>"
-		+ "<p>" + badScope + " : " + "<span class='bad'>낮음</span>" + "</p>"
-		+ "</div>";
-		format += grades;
-	}
+    var grades = " <div class='tooltip-grades'"
+    + "<p>" + goodScope + " : " + "<span class='good'>높음</span>" + "</p>"
+    + "<p>" + normalScope + " : " + "<span class='normal'>보통</span>" + "</p>"
+    + "<p>" + badScope + " : " + "<span class='bad'>낮음</span>" + "</p>"
+    + "</div>";
+    format += grades;
+  }
 
-
-	return format;
+  return format;
 }
 
-
-
-
-
-
 $(window).load(function() {
-	$('.header-text').text("Project Activity - " + data.name);
-	processAll("#rcf", data.activity[data.activity.length -1], 0, 100);
-	processAll("#scf", data.scale, 0, 100);
-	processAll("#ccr", data.cooperation, 0, 100);
-	drawActivityGraph(".activity-graph", data.activity, data.future, data.today, 0, 100);
-	drawDonuts(".donuts", data.topContributor, data.contributorCount, data.size);
-	setTopContributors(".top-contributors", data.topContributor);
-	$(document).tooltip({
-		items: "img.helper",
-		content: function() {
-			return showTooltip($(this).attr("alt"));
-		}
-	});
+  $('.header-text').text("Project Activity - " + data.name);
+  showCurrentMetrics();
+  showActivityGraph(".activity-graph", data.activity, data.future, data.today, 0, 100);
+  showCommitDistribution();
+  initializeTooltip();
 });
