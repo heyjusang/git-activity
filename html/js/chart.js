@@ -57,16 +57,21 @@ function showActivityGraph(chartId, dataSource, predictions, lastDate, unit, val
 
   $(chartId).scrollLeft($(chartId + ' .lineGraph').width());
 
-  var element = $(chartId).jScrollPane();
-  var api = element.data('jsp');
-  element.bind(
+  var scrollPane = $(chartId).jScrollPane();
+
+  var api = scrollPane.data('jsp'); 
+  scrollPane.bind( 
     'mousewheel',
-    function (event, delta, deltaX, deltaY)
-    {
-      api.scrollByX(delta * 30);
-      return false;
-    }
-  );
+    function (event, delta, deltaX, deltaY) 
+    { 
+      if (Math.abs(deltaX) < Math.abs(deltaY)) {
+        api.scrollByX(deltaY*-50);
+        return false;
+      }
+    } 
+  ); 
+
+
 }
 
 function showCommitDistribution() {
