@@ -31,7 +31,7 @@ function showMetricProgress(graphId, value, valueMin, valueMax) {
   });
 }
 
-function showActivityGraph(chartId, dataSource, predictions, lastDate, valueMin, valueMax) {
+function showActivityGraph(chartId, dataSource, predictions, lastDate, unit, valueMin, valueMax) {
 
   if (dataSource.length < 1)
     return;
@@ -51,7 +51,8 @@ function showActivityGraph(chartId, dataSource, predictions, lastDate, valueMin,
       values: [[0,25], [25,75], [75,100]],
       colors: ["#c5819a", "#f7c676", "#7cd2c7"]
     },
-    lastDate: lastDate
+    lastDate: lastDate,
+    unit: unit
   });
 
   $(chartId).scrollLeft($(chartId + ' .lineGraph').width());
@@ -147,7 +148,7 @@ function showTooltip(tag) {
 $(window).load(function() {
   $('.header-text').text("Project Activity - " + data.name);
   showCurrentMetrics();
-  showActivityGraph(".activity-graph", data.activity, data.future, data.today, 0, 100);
+  showActivityGraph(".activity-graph", data.activity, data.future, data.today, data.unit, 0, 100);
   showCommitDistribution();
   initializeTooltip();
 });

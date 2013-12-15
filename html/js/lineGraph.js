@@ -26,7 +26,8 @@ function drawLineGraph(chartId, options) {
       values: [[0,25], [75,100]],
 			colors: ["#f7c676", "#c5819a"]
     },
-    lastDate: "2013-11"
+    lastDate: "2013-11",
+    unit: 0
   };
 
   options = $.extend(true,{},defaults,options);
@@ -67,16 +68,17 @@ function drawLineGraph(chartId, options) {
 
   var xAxis = d3.svg.axis().scale(x).ticks(options.data.length)
   .tickFormat(function(d,i) {
-
-    date = new Date(year, month - (options.data.length - i));
+    date = new Date(options.lastDate - options.unit *  (options.data.length - i));
+    console.log(date);
     if (markedYear == date.getFullYear()) {
-      return (date.getMonth() + 1);
+      return (date.getMonth() + 1) + ". " + date.getDate();
     }
     else {
       markedYear = date.getFullYear();
-      return date.getFullYear() + "-" + (date.getMonth() + 1); 
+      return date.getFullYear() + ". " + (date.getMonth() + 1) + ". " + date.getDate(); 
     }
   });
+
   var yAxis = d3.svg.axis().scale(y).ticks((yMax-yMin)/options.y.tick).orient("left");
 
   chart.append("g")
