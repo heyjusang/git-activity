@@ -64,7 +64,7 @@ function drawLineGraph(chartId, options) {
   var year = today.getFullYear();
   var month = today.getMonth() + 1;
   var markedYear;
-  //TODO control tick
+
   var xAxis = d3.svg.axis().scale(x).ticks(options.data.length)
   .tickFormat(function(d,i) {
 
@@ -77,7 +77,7 @@ function drawLineGraph(chartId, options) {
       return date.getFullYear() + "-" + (date.getMonth() + 1); 
     }
   });
-  var yAxis = d3.svg.axis().scale(y).ticks(4).orient("left");
+  var yAxis = d3.svg.axis().scale(y).ticks((yMax-yMin)/options.y.tick).orient("left");
 
   chart.append("g")
   .attr("transform", "translate(0,"+ yStart + ")")
@@ -93,9 +93,6 @@ function drawLineGraph(chartId, options) {
   .attr("transform", function(d) {
     return "rotate(-65)" 
   });
-
-
-
 
   yAxisArea.append("g")
   .attr("transform", "translate(" + 30 + ",0)")
@@ -126,7 +123,6 @@ function drawLineGraph(chartId, options) {
     .style("fill", color)
     .style("opacity", 0.4);
   }
-
 
   var halfLine = chart.append("line")
   .attr("x1", x(xMin))
