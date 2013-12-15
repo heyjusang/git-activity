@@ -32,7 +32,7 @@ function drawLineGraph(chartId, options) {
 
   options = $.extend(true,{},defaults,options);
 
-  var width = (options.data.length + options.predictionData.length) * 50;
+  var width = (options.data.length + options.predictionData.length) * 40;
   var height = $(chartId).height();
 
   var xStart = 0 + options.margin.left + 20;
