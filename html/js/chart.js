@@ -1,6 +1,6 @@
 function showCurrentMetrics() {
 
-  var rcf = data.activity[data.activity.length-1];
+  var rcf = (data.activity.length < 1) ? 0 : data.activity[data.activity.length-1];
   var scf = data.scale;
   var ccr = data.cooperation;
 
@@ -32,8 +32,12 @@ function showMetricProgress(graphId, value, valueMin, valueMax) {
 }
 
 function showActivityGraph(chartId, dataSource, predictions, lastDate, valueMin, valueMax) {
+
+  if (dataSource.length < 1)
+    return;
+
   var range = valueMax-valueMin;
-	drawLineGraph(chartId,{
+  drawLineGraph(chartId,{
     data : dataSource,
     predictionData: predictions,
     x : {
@@ -45,7 +49,7 @@ function showActivityGraph(chartId, dataSource, predictions, lastDate, valueMin,
     },
     guideLine: {
       values: [[0,25], [25,75], [75,100]],
-			colors: ["#7cd2c7", "#f7c676", "#c5819a"]
+      colors: ["#7cd2c7", "#f7c676", "#c5819a"]
     },
     lastDate: lastDate
   });
@@ -65,8 +69,8 @@ function showActivityGraph(chartId, dataSource, predictions, lastDate, valueMin,
 }
 
 function showCommitDistribution() {
-	drawCommitDonuts(".donuts", data.topContributor, data.contributorCount, data.size);
-	showTopContributors(".top-contributors", data.topContributor);
+  drawCommitDonuts(".donuts", data.topContributor, data.contributorCount, data.size);
+  showTopContributors(".top-contributors", data.topContributor);
 }
 
 function drawCommitDonuts(prefix, data, contributorCount, commitCount) {
