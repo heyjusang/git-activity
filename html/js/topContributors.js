@@ -1,10 +1,12 @@
 function drawTopContributors(parentId, options) {
-  var color = ["#109D61", "#175E94", "#E68D17", "#E65217", "#90BADB", "#F6D09C", "#F6B69C", "#5FA5DB", "#58DEA4", "#F68C62"];
 
   var defaults = {
-    data : {}
+    data : {},
+    color : ["#209D61", "#175E94", "#E68D17", "#E65217", "#90BADB", "#F6D09C", "#F6B69C", "#5FA5DB", "#58DEA4", "#F68C62"]
   };
   options = $.extend(true,{},defaults,options);
+
+  var color = options.color;
 
   for (var i = 0; i < options.data.length; i++) {
     var contributor = options.data[i];
@@ -28,7 +30,8 @@ function drawTotalDonut(chartId, options) {
   var defaults = {
     data : {},
     totalContributor: 0,
-    totalCommit: 0
+    totalCommit: 0,
+    color : ["#f7c676","#f2f2f2"]
   };
   options = $.extend(true,{},defaults,options);
 
@@ -42,16 +45,15 @@ function drawTotalDonut(chartId, options) {
   data.push({name:"상위 " + options.data.length + "명", count:counts});
   data.push({name:"나머지 " + (options.totalContributor - options.data.length) + "명", count:options.totalCommit - counts});
 
-  var color = ["#f7c676","#f2f2f2"];
-
-  drawDonutGraph(chartId, data, options.totalCommit ,color);
+  drawDonutGraph(chartId, data, options.totalCommit ,options.color);
 
 }
 
 function drawTopDonut(chartId, options) {
 
   var defaults = {
-    data : {}
+    data : {},
+    color : ["#109D61", "#175E94", "#E68D17", "#E65217", "#90BADB", "#F6D09C", "#F6B69C", "#5FA5DB", "#58DEA4", "#F68C62"]
   };
   options = $.extend(true,{},defaults,options);
 
@@ -63,10 +65,9 @@ function drawTopDonut(chartId, options) {
 
   var data = options.data;
 
-  var color = ["#109D61", "#175E94", "#E68D17", "#E65217", "#90BADB", "#F6D09C", "#F6B69C", "#5FA5DB", "#58DEA4", "#F68C62"];
+  var color = options.color;
 
-  var chart = drawDonutGraph(chartId, data, counts, color);
-
+  var chart = drawDonutGraph(chartId, data, counts, options.color);
 
 }
 
@@ -114,27 +115,27 @@ function drawDonutGraph(chartId, data, total, color) {
     else {
       return ;
     }
-});
+  });
 
 
-var legend = chart.selectAll(".legend")
-.data(data)
-.enter().append("g")
-.attr("class", "legend")
-.attr("transform", function(d, i) { return "translate(" + (radius + 20) + "," + (((i+1) * 20) - radius)  + ")"; });
+  var legend = chart.selectAll(".legend")
+  .data(data)
+  .enter().append("g")
+  .attr("class", "legend")
+  .attr("transform", function(d, i) { return "translate(" + (radius + 20) + "," + (((i+1) * 20) - radius)  + ")"; });
 
-legend.append("rect")
-.attr("width", 15)
-.attr("height", 15)
-.style("fill", function(d,i) { return color[i];});
+  legend.append("rect")
+  .attr("width", 15)
+  .attr("height", 15)
+  .style("fill", function(d,i) { return color[i];});
 
-legend.append("text")
-.attr("x", 24)
-.attr("y", 9)
-.attr("dy", ".20em")
-.attr("font-size", 12)
-.text(function(d) { return d.name; });
+  legend.append("text")
+  .attr("x", 24)
+  .attr("y", 9)
+  .attr("dy", ".20em")
+  .attr("font-size", 12)
+  .text(function(d) { return d.name; });
 
-return chart;
+  return chart;
 
 }
