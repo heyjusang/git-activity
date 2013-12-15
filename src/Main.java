@@ -38,7 +38,7 @@ public class Main {
 	private static void computeMetrics(JSONObject obj, Target target) {
 		obj.put("today", ((long)Metric.today()) * 1000);
 		obj.put("name", target.getProjectName());
-		obj.put("unit", Metric.DEFAULT_UNIT * 1000);
+		obj.put("unit", ((long) Metric.DEFAULT_UNIT) * 1000);
 		obj.put("size", target.getListCommitTime().size());
 		obj.put("activity", (new RCF(target)).getLogs());
 		obj.put("scale", (new SCF(target)).getValue());
