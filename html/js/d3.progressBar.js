@@ -85,9 +85,6 @@ function drawProgressBarGraph(chartId, options) {
   .attr("fill", ticks[0].color) 
   .each("end", function() {generateAnimation(1)});
 
-
-
-//TODO duration
   function generateAnimation(i) {
     if (ticks.length < i + 1) {
       return;
