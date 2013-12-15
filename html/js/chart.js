@@ -49,7 +49,7 @@ function showActivityGraph(chartId, dataSource, predictions, lastDate, valueMin,
     },
     guideLine: {
       values: [[0,25], [25,75], [75,100]],
-      colors: ["#7cd2c7", "#f7c676", "#c5819a"]
+      colors: ["#c5819a", "#f7c676", "#7cd2c7"]
     },
     lastDate: lastDate
   });

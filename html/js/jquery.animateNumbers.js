@@ -29,10 +29,10 @@
                 if (commas) { 
                   $this.text($this.text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")); 
                   if (this.value > 3*range/4) {
-                    $this.css("color", "#c5819a");
+                    $this.css("color", "#76c8bd");
                   }
                   else if (this.value <= range/4) {
-                    $this.css("color", "#76c8bd");
+                    $this.css("color", "#c5819a");
                   }
                   else {
                     $this.css("color", "#f7c676");

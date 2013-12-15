@@ -13,7 +13,7 @@ function drawProgressBarGraph(chartId, options) {
     valueMin: 0,
     valueMax: 100,
     guides: [25, 60],
-	  guideColors: ["#76c8bd", "#f7c676", "#c5819a"]
+    guideColors: ["#c5819a", "#f7c676", "#7cd2c7"]
   }
 
   options = $.extend(true,{},defaults,options);
