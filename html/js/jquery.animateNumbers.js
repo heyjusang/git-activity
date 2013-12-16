@@ -42,7 +42,7 @@
               },
               complete: function() {
                 if (parseInt($this.text()) !== stop) {
-                  $this.text(stop);
+                  $this.text(stop.toFixed(2));
                   if (commas) { $this.text($this.text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")); }
                 }
               }
