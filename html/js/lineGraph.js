@@ -69,7 +69,6 @@ function drawLineGraph(chartId, options) {
   var xAxis = d3.svg.axis().scale(x).ticks(totalData.length)
   .tickFormat(function(d,i) {
     date = new Date(predictedDay - (options.unit *  (totalData.length - i)));
-    console.log(date, i);
     if (markedYear == date.getFullYear()) {
       return (date.getMonth() + 1) + ". " + date.getDate();
     }

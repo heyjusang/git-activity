@@ -3,6 +3,8 @@ function showCurrentMetrics() {
   var rcf = (data.activity.length < 1) ? 0 : data.activity[data.activity.length-1];
   var scf = data.scale;
   var ccr = data.cooperation;
+  // var scf = (data.scale.length < 1) ? 0 : data.scale[data.scale.length-1];
+  // var ccr = (data.cooperation < 1) ? 0 : data.cooperation[data.cooperation.length-1];
 
   showAnimatingNumber("#rcf", rcf, 0,100);
   showAnimatingNumber("#scf", scf, 0,100);
@@ -16,9 +18,21 @@ function showCurrentMetrics() {
 function showAnimatingNumber(prefix, data, valueMin, valueMax) {
   var range = valueMax - valueMin;
   var value = Number(data.toFixed(2));
-   
+
 	$(prefix + " .label-value").animateNumbers(value, valueMin, valueMax);
   $(prefix + " .max-value").text(" / " + valueMax);
+  if (value < 25) {
+    $(prefix + " .row1 .helper").text(" 낮음");
+    $(prefix + " .row1 .helper").css("color", "#c5819a");
+  }
+  else if (value >= 75) { 
+    $(prefix + " .row1 .helper").text(" 높음");
+    $(prefix + " .row1 .helper").css("color", "#7cd2c7");
+  }
+  else {
+    $(prefix + " .row1 .helper").text(" 보통");
+    $(prefix + " .row1 .helper").css("color", "#f7c676");
+  }
 }
 
 function showMetricProgress(graphId, value, valueMin, valueMax) {
@@ -80,12 +94,12 @@ function showCommitDistribution() {
 }
 
 function drawCommitDonuts(prefix, data, contributorCount, commitCount) {
-  drawTotalDonut(prefix + " .total",  {
+  drawTotalDonut(prefix + " .total .donuts-graph",  {
     data: data,
     totalContributor: contributorCount,
     totalCommit: commitCount
   });
-  drawTopDonut(prefix + " .top",  {
+  drawTopDonut(prefix + " .top .donuts-graph",  {
     data: data
   });
 }
@@ -96,64 +110,9 @@ function showTopContributors(parentId, data) {
   });
 }
 
-function initializeTooltip() {
-  $(document).tooltip({
-    items: "img.helper",
-    content: function() {
-      return showTooltip($(this).attr("alt"));
-    }
-  });
-}
-
-function showTooltip(tag) {
-
-  var Tag = {
-    rcf: "rcf",
-    scf: "scf",
-    ccr: "ccr",
-    activityGraph: "activity-graph",
-    commitInformation: "commit-information"
-  };
-
-  var description;
-  var badScope = "0 ~ 24";
-  var normalScope = "25 ~ 74";
-  var goodScope = "75 ~ 100";
-
-  if (tag == Tag.rcf) {
-    description = "최근 6개월간 커밋 빈도와 전체 개발 기간 커밋 빈도의 비를 점수화한 지표.";
-  }
-  else if (tag == Tag.scf) {
-    description = "최근 6개월간 커밋 횟수를 점수화한 지표.";
-  }
-  else if (tag == Tag.ccr) {
-    description = "최근 6개월간 다른 이의 코드를 고친 횟수와 최근 6개월간 전체 커밋 횟수의 비를 점수화한 지표.";
-  }
-  else if (tag == Tag.activityGraph) {
-    description = "활동성 변화 양상과 앞으로의 변화 방향을 예측하여 나타낸 그래프입니다.";
-  }
-  else if (tag == Tag.commitInformation) {
-    description = "커밋 분포 정보를 나타냅니다. 첫번째 그래프는 커밋을 많이 한 상위 10명의 커밋 비율을 나타내고, 두번째 그래프는 상위 10명간의 커밋 비율을 나타냅니다. ";
-  }
-
-  var format = "<div class='tooltip-description'>" + description + "</div>";
-
-  if (tag == Tag.scf || tag == Tag.rcf || tag == Tag.ccr)  {
-    var grades = " <div class='tooltip-grades'"
-    + "<p>" + goodScope + " : " + "<span class='good'>높음</span>" + "</p>"
-    + "<p>" + normalScope + " : " + "<span class='normal'>보통</span>" + "</p>"
-    + "<p>" + badScope + " : " + "<span class='bad'>낮음</span>" + "</p>"
-    + "</div>";
-    format += grades;
-  }
-
-  return format;
-}
-
 $(window).load(function() {
   $('.header-text').text("Project Activity - " + data.name);
   showCurrentMetrics();
   showActivityGraph(".activity-graph", data.activity, data.future, data.today, data.unit, 0, 100);
   showCommitDistribution();
-  initializeTooltip();
 });

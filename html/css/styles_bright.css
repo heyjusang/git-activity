@@ -66,10 +66,16 @@ hr
 
 .row1 .helper
 {
-	width: 20px;
-	height: 20px;
+  font-size: 13px;
 	display: inline-block;
   position: relative;
+}
+
+.description_row
+{
+	width: 75%;
+  height: 40px;
+  font-size: 12px;
 }
 
 .row2
@@ -142,18 +148,33 @@ hr
  display: block;
 }
 
+.donuts .description
+{
+  width: 500px;
+  height: 40px;
+  font-size: 12px;
+  margin-top: 5px;
+  text-align: center;
+}
+
 .donuts .total
 {
   width: 500px;
-  height: 250px;
+  height: 300px;
   display:inline-block;
 }
 
 .donuts .top
 {
   width: 500px;
-  height: 250px;
+  height: 300px;
   display:inline-block;
+}
+
+.donuts .donuts-graph
+{
+  width: 500px;
+  height: 250px;
 }
 
 .top-contributors
@@ -221,32 +242,9 @@ hr
   font-weight: 600;
 }
 
-.tooltip-description
+.top-contributors-description
 {
-  width: 300px;
-  word-break: break-word;
-  font-size : 13px;
+  width: 100%;
+  font-size: 12px;
+  text-align: center;
 }
-
-.tooltip-grades
-{
-  margin-top : 10px;
-  width: 200px;
-  font-size : 12px;
-}
-
-.tooltip-grades .good
-{
-  color: #7cd2c7;
-}
-.tooltip-grades .normal
-{
-  color: #f7c676;
-}
-.tooltip-grades .bad
-{
-  color: #c5819a;
-}
-
-
-
