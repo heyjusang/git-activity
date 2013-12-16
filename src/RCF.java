@@ -6,7 +6,7 @@ public class RCF extends Metric {
 		super(target);
 	}
 
-	private double getMeanCommitinterval(int timeStart, int timeEnd) {
+	private double getMedianCommitinterval(int timeStart, int timeEnd) {
 		int timeLast = -1;
 		ArrayList<Double> interval = new ArrayList<Double>();
 		for (Integer time : this.target.getListCommitTime()) {
@@ -16,12 +16,12 @@ public class RCF extends Metric {
 				timeLast = time;
 			}
 		}
-		return getMean(interval);
+		return getMedian(interval);
 	}
 
 	public double getValue(int timeEnd) {
-		double mcia = getMeanCommitinterval(timeEnd - 24 * DEFAULT_INTERVAL, timeEnd);
-		double mci6 = getMeanCommitinterval(timeEnd - DEFAULT_INTERVAL, timeEnd);
+		double mcia = getMedianCommitinterval(timeEnd - 24 * DEFAULT_INTERVAL, timeEnd);
+		double mci6 = getMedianCommitinterval(timeEnd - DEFAULT_INTERVAL, timeEnd);
 		double ratio = mcia / (mci6 + 1E-9);
 		double rcf = 100. * (1 - 1 / (1 + Math.pow(ratio, 2)));
 		return rcf;
