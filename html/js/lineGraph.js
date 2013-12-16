@@ -32,6 +32,8 @@ function drawLineGraph(chartId, options) {
 
   options = $.extend(true,{},defaults,options);
 
+  var totalData = options.data.concat(options.predictionData);
+
   var width = (options.data.length + options.predictionData.length) * 40;
   var height = $(chartId).height();
 
@@ -60,16 +62,14 @@ function drawLineGraph(chartId, options) {
   var x = d3.scale.linear().domain([xMin, xMax]).range([xStart, xEnd]);
   var y = d3.scale.linear().domain([yMin, yMax]).range([yStart, yEnd]);
 
-  var today = new Date(options.lastDate);
+  var predictedDay = new Date(options.lastDate + options.unit * (options.predictionData.length + 1));
 
-  var year = today.getFullYear();
-  var month = today.getMonth() + 1;
   var markedYear;
 
-  var xAxis = d3.svg.axis().scale(x).ticks(options.data.length)
+  var xAxis = d3.svg.axis().scale(x).ticks(totalData.length)
   .tickFormat(function(d,i) {
-    date = new Date(options.lastDate - options.unit *  (options.data.length - i));
-    console.log(date);
+    date = new Date(predictedDay - (options.unit *  (totalData.length - i)));
+    console.log(date, i);
     if (markedYear == date.getFullYear()) {
       return (date.getMonth() + 1) + ". " + date.getDate();
     }
