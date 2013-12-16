@@ -23,7 +23,7 @@ public class RCF extends Metric {
 		double mcia = getMedianCommitinterval(timeEnd - 24 * DEFAULT_INTERVAL, timeEnd);
 		double mci6 = getMedianCommitinterval(timeEnd - DEFAULT_INTERVAL, timeEnd);
 		double ratio = mcia / (mci6 + 1E-9);
-		double rcf = 100. * (1 - 1 / (1 + Math.pow(ratio, 2)));
-		return rcf;
+		double rcf = 100. / (1 + Math.exp(-ratio));
+		return (rcf - 50.0) * 2.0;
 	}
 }

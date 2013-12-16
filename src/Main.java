@@ -41,8 +41,8 @@ public class Main {
 		obj.put("unit", ((long) Metric.DEFAULT_UNIT) * 1000);
 		obj.put("size", target.getListCommitTime().size());
 		obj.put("activity", (new RCF(target)).getLogs());
-		obj.put("scale", (new SCF(target)).getValue());
-		obj.put("cooperation", (new CCR(target)).getValue());
+		obj.put("scale", (new SCF(target)).getLogs());
+		obj.put("cooperation", (new CCR(target)).getLogs());
 		obj.put("contributorCount", target.getTotalContributorCount());
 		ArrayList<Entry<String,Integer>> ranking = target.getTopContributors();
 		JSONArray topContributor = new JSONArray();

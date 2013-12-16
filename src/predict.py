@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import json
 import numpy as np
-from sklearn.gaussian_process import GaussianProcess
+from sklearn.ensemble import GradientBoostingRegressor
 
 data = json.load(open('html/js/data.js'))
 
@@ -10,10 +10,9 @@ if len(data['activity']) > 0:
     y = np.array(data['activity'])
     x = np.atleast_2d(xrange(len(y))).T
 
-    # Instanciate a Gaussian Process model
-    # Fit to data using Maximum Likelihood Estimation of the parameters
-    gp = GaussianProcess(theta0=1e-1, nugget=1e-6)
-    gp.fit(x, y)
+    # Instanciate a prediction model
+    model = GradientBoostingRegressor()
+    model.fit(x, y)
 
     # Generate the input space and make the prediction
     xp = np.atleast_2d(xrange(len(y), len(y)+6)).T
@@ -23,5 +22,6 @@ if len(data['activity']) > 0:
     data['future'] = list(yp)
 else:
     data['future'] = []
+
 out = 'var data = %s;' % json.dumps(dict(data))
 open('html/js/data.js','w').write(out)

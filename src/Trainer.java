@@ -30,7 +30,6 @@ public class Trainer {
             obj.put("B", (new SCF(target)).getLogs());
             obj.put("C", (new CCR(target)).getLogs());
             writeFile(obj, projectName);
-            if (i == 3) break;
         }
     }
 }
