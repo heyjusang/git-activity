@@ -5,7 +5,7 @@ import java.util.Date;
 public abstract class Metric {
 	public static final int WEEK = 7*24*60*60;
 	public static final int MONTH = 4*WEEK;
-	public static final int DEFAULT_UNIT = MONTH;
+	public static final int DEFAULT_UNIT = 2*WEEK;
 	public static final int DEFAULT_INTERVAL = 6*MONTH;
 	protected Target target;
 
