@@ -1,10 +1,8 @@
 function showCurrentMetrics() {
 
   var rcf = (data.activity.length < 1) ? 0 : data.activity[data.activity.length-1];
-  var scf = data.scale;
-  var ccr = data.cooperation;
-  // var scf = (data.scale.length < 1) ? 0 : data.scale[data.scale.length-1];
-  // var ccr = (data.cooperation < 1) ? 0 : data.cooperation[data.cooperation.length-1];
+  var scf = (data.scale.length < 1) ? 0 : data.scale[data.scale.length-1];
+  var ccr = (data.cooperation < 1) ? 0 : data.cooperation[data.cooperation.length-1];
 
   showAnimatingNumber("#rcf", rcf, 0,100);
   showAnimatingNumber("#scf", scf, 0,100);
